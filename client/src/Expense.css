@@ -1,0 +1,33 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  border-bottom: 1px dotted black;
+  margin: 10px;
+}
+
+.details {
+  display: flex;
+  flex-direction: row;
+  gap: 50px;
+  justify-content: space-between; 
+  align-items: center;
+}
+
+.date {
+  display: flex;
+  margin-bottom: 5px;
+  justify-content: center;
+}
+
+.date p {
+  font-size: 15px;
+  font-style: italic;
+  font-weight: bolder;
+}
+
+p {
+  font-family: "Courier New", Courier, monospace;
+  font-size: 20px;
+  margin: 0%;
+}
