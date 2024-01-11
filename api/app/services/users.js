@@ -57,4 +57,62 @@ module.exports = {
       res.status(500).json({ error: "Internal Server Error" });
     }
   },
+
+  //   delete user
+  deleteUser: async (req, res) => {
+    try {
+      const { userId } = req.userId;
+
+      await UsersCollection.deleteUser(userId);
+
+      res.status(200).json({ success: true, message: "User deleted" });
+    } catch (err) {
+      console.error(`Error deleting user: ${err}`);
+      res.status(500).json({ error: "Internal Server Error" });
+    }
+  },
+
+  //  add category
+  addCategory: async (req, res) => {
+    try {
+      const { userId } = req.userId;
+      const { category } = req.body;
+
+      await UsersCollection.addCategory(userId, category);
+
+      res.status(200).json({ success: true, message: "Category added" });
+    } catch (err) {
+      console.error(`Error adding category: ${err}`);
+      res.status(500).json({ error: "Internal Server Error" });
+    }
+  },
+
+  //   get all categories
+  getCategories: async (req, res) => {
+    try {
+      const { userId } = req.userId;
+
+      const user = await UsersCollection.findById(userId);
+
+      res.status(200).json({ categories: user.categories });
+    } catch (err) {
+      console.error(`Error getting categories: ${err}`);
+      res.status(500).json({ error: "Internal Server Error" });
+    }
+  },
+
+  //   delete category
+  deleteCategory: async (req, res) => {
+    try {
+      const { userId } = req.userId;
+      const { category } = req.params;
+
+      await UsersCollection.deleteCategory(userId, category);
+
+      res.status(200).json({ success: true, message: "Category deleted" });
+    } catch (err) {
+      console.error(`Error deleting category: ${err}`);
+      res.status(500).json({ error: "Internal Server Error" });
+    }
+  },
 };

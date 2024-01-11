@@ -13,6 +13,17 @@ class UsersCollection {
     return this._instance;
   }
 
+  static async findById(userId) {
+    try {
+      return await this.instance().usersCollection.findOne({
+        _id: new ObjectId(userId),
+      });
+    } catch (err) {
+      console.error(`error finding user by id: ${err}`);
+      throw new Error(`Error finding user by id`);
+    }
+  }
+
   static async findByUsername(username) {
     try {
       return await this.instance().usersCollection.findOne({
@@ -53,6 +64,42 @@ class UsersCollection {
       });
     } catch (err) {
       throw new Error(`Error creating user: ${err}`);
+    }
+  }
+
+  // TODO: add delete to all expenses later
+  static async deleteUser(userId) {
+    try {
+      return await this.instance().usersCollection.deleteOne({
+        _id: new ObjectId(userId),
+      });
+    } catch (err) {
+      console.error(`Error deleting user: ${err}`);
+      throw new Error(`Error deleting user: ${err.message}`);
+    }
+  }
+
+  static async addCategory(userId, category) {
+    try {
+      return await this.instance().usersCollection.updateOne(
+        { _id: new ObjectId(userId) },
+        { $addToSet: { categories: category } }
+      );
+    } catch (err) {
+      console.error(`Error adding category: ${err}`);
+      throw new Error(`Error adding category: ${err.message}`);
+    }
+  }
+
+  static async deleteCategory(userId, category) {
+    try {
+      return await this.instance().usersCollection.updateOne(
+        { _id: new ObjectId(userId) },
+        { $pull: { categories: category } }
+      );
+    } catch (err) {
+      console.error(`Error deleting category: ${err}`);
+      throw new Error(`Error deleting category: ${err.message}`);
     }
   }
 }
