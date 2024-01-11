@@ -13,11 +13,19 @@ module.exports = {
 
       // create the user doc
       await UsersCollection.create(email, hashedPassword, username);
+
+      res
+        .status(200)
+        .json({ success: true, message: "User created successfully" });
     } catch (err) {
-      if (err == `email already exist` || err == `username already exist`) {
-        res.status(400).json({ error: err });
+      if (
+        err.message === "email already exist" ||
+        err.message === "username already exist"
+      ) {
+        res.status(400).json({ error: err.message });
       } else {
-        res.status(500).send({ error: err });
+        console.error(`Error creating user: ${err}`);
+        res.status(500).json({ error: "Internal Server Error" });
       }
     }
   },
@@ -45,8 +53,8 @@ module.exports = {
 
       res.status(200).json({ token });
     } catch (err) {
-      console.log(`Error authenticating user: ${err}`);
-      res.status(500).json({ error: err });
+      console.error(`Error authenticating user: ${err}`);
+      res.status(500).json({ error: "Internal Server Error" });
     }
   },
 };

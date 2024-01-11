@@ -1,26 +1,19 @@
+const jwt = require("jsonwebtoken");
+
 module.exports = {
   validateToken: (req, res, next) => {
-    // Get the token from the request headers
-    const token = req.headers.authorization;
+    const authHeader = req.headers["authorization"];
+    const token = authHeader && authHeader.split(" ")[1];
 
-    if (!token) {
-      // No token provided, return 401 Unauthorized
-      return res
-        .status(401)
-        .json({ error: "Unauthorized - No token provided" });
-    }
+    if (token == null) return res.sendStatus(401);
 
-    // Verify the token
-    jwt.verify(token, process.env.JWT_KEY, (err, decoded) => {
-      if (err) {
-        // Token verification failed, return 401 Unauthorized
-        return res.status(401).json({ error: "Unauthorized - Invalid token" });
-      }
+    jwt.verify(token, process.env.JWT_KEY, (err, user) => {
+      console.log(err);
 
-      // Token is valid, attach the decoded payload to the request object
-      req.userId = decoded.userId; // Adjust the property based on your token payload
+      if (err) return res.sendStatus(403);
 
-      // Continue to the next middleware or route handler
+      req.user = user;
+
       next();
     });
   },
