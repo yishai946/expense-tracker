@@ -3,7 +3,7 @@ const MongoDB = require("./mongodb");
 
 class ExpensesCollection {
   constructor() {
-    this.usersCollection = MongoDB.instance().db().collection("expenses");
+    this.expensesCollection = MongoDB.instance().db().collection("expenses");
   }
 
   static instance() {
@@ -15,7 +15,7 @@ class ExpensesCollection {
 
   static async findById(id) {
     try {
-      return await this.instance().usersCollection.findOne({
+      return await this.instance().expensesCollection.findOne({
         _id: new ObjectId(id),
       });
     } catch (err) {
@@ -25,9 +25,9 @@ class ExpensesCollection {
   }
 
   //   add new expense
-  async create(title, amount, date, category, userId) {
+  static async create(title, amount, date, category, userId) {
     try {
-      await this.usersCollection.insertOne({
+      await this.instance().expensesCollection.insertOne({
         title,
         amount,
         date,
@@ -37,6 +37,62 @@ class ExpensesCollection {
     } catch (err) {
       console.error(`Error creating expense: ${err}`);
       throw new Error(`Error creating expense`);
+    }
+  }
+
+  //   get all expenses
+  static async getAll(userId) {
+    try {
+      return await this.instance().expensesCollection
+        .find({ userId })
+        .toArray();
+    } catch (err) {
+      console.error(`Error getting all expenses: ${err}`);
+      throw new Error(`Error getting all expenses`);
+    }
+  }
+
+  //  get expense by id
+  static async findById(id) {
+    try {
+      return await this.instance().expensesCollection.findOne({
+        _id: new ObjectId(id),
+      });
+    } catch (err) {
+      console.error(`Error getting expense by id: ${err}`);
+      throw new Error(`Error getting expense by id`);
+    }
+  }
+
+  //   update expense
+  static async update(id, title, amount, date, category) {
+    try {
+      await this.instance().expensesCollection.updateOne(
+        { _id: new ObjectId(id) },
+        {
+          $set: {
+            title,
+            amount,
+            date,
+            category,
+          },
+        }
+      );
+    } catch (err) {
+      console.error(`Error updating expense: ${err}`);
+      throw new Error(`Error updating expense`);
+    }
+  }
+
+  //   delete expense
+  static async delete(id) {
+    try {
+      await this.instance().expensesCollection.deleteOne({
+        _id: new ObjectId(id),
+      });
+    } catch (err) {
+      console.error(`Error deleting expense: ${err}`);
+      throw new Error(`Error deleting expense`);
     }
   }
 }

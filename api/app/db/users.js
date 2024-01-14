@@ -81,12 +81,17 @@ class UsersCollection {
 
   static async addCategory(userId, category) {
     try {
+      // check if category already exist
+      const user = await this.findById(userId);
+      if (user.categories.includes(category)) {
+        throw new Error(`category already exist`);
+      }
+
       return await this.instance().usersCollection.updateOne(
         { _id: new ObjectId(userId) },
         { $addToSet: { categories: category } }
       );
     } catch (err) {
-      console.error(`Error adding category: ${err}`);
       throw new Error(`Error adding category: ${err.message}`);
     }
   }

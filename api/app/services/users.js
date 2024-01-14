@@ -82,22 +82,11 @@ module.exports = {
 
       res.status(200).json({ success: true, message: "Category added" });
     } catch (err) {
+      if (err.message === "Error adding category: category already exist") {
+        return res.status(400).json({ error: err.message });
+      }
       console.error(`Error adding category: ${err}`);
-      res.status(500).json({ error: "Internal Server Error" });
-    }
-  },
-
-  //   get all categories
-  getCategories: async (req, res) => {
-    try {
-      const { userId } = req.userId;
-
-      const user = await UsersCollection.findById(userId);
-
-      res.status(200).json({ categories: user.categories });
-    } catch (err) {
-      console.error(`Error getting categories: ${err}`);
-      res.status(500).json({ error: "Internal Server Error" });
+      return res.status(500).json({ error: "Internal Server Error" });
     }
   },
 

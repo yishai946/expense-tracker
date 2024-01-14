@@ -7,15 +7,15 @@ const { validateToken } = require("../middleware/auth");
 router.post("/add", validateToken, services.createExpense);
 
 // get all expenses route
-// router.get("/all", validateToken, services.getAllExpenses);
+router.get("/getAll", validateToken, services.getAllExpenses);
 
 // get expense by id route
-// router.get("/:id", validateToken, services.getExpenseById);
+router.get("/getOne/:id", validateToken, services.getExpenseById);
 
 // update expense route
-// router.put("/update/:id", validateToken, services.updateExpense);
+router.put("/update/:id", validateToken, services.updateExpense);
 
 // delete expense route
-// router.delete("/delete/:id", validateToken, services.deleteExpense);
+router.delete("/delete/:id", validateToken, services.deleteExpense);
 
 module.exports = router;
