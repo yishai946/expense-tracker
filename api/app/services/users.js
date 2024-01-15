@@ -6,13 +6,13 @@ module.exports = {
   // create new user
   createUser: async (req, res) => {
     try {
-      const { email, password, username } = req.body;
+      const { email, password, username, name } = req.body;
 
       // Hash the password before storing it
       const hashedPassword = await bcrypt.hash(password, 10);
 
       // create the user doc
-      await UsersCollection.create(email, hashedPassword, username);
+      await UsersCollection.create(email, hashedPassword, username, name);
 
       res
         .status(200)
@@ -22,6 +22,7 @@ module.exports = {
         err.message === "email already exist" ||
         err.message === "username already exist"
       ) {
+        console.error(`Error creating user: ${err}`);
         res.status(400).json({ error: err.message });
       } else {
         console.error(`Error creating user: ${err}`);
@@ -51,7 +52,9 @@ module.exports = {
         expiresIn: "3h",
       });
 
-      res.status(200).json({ token });
+      const expiry = new Date(Date.now() + 3 * 60 * 60 * 1000);
+
+      res.status(200).json({ token, expiry });
     } catch (err) {
       console.error(`Error authenticating user: ${err}`);
       res.status(500).json({ error: "Internal Server Error" });

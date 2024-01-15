@@ -44,7 +44,7 @@ class UsersCollection {
     }
   }
 
-  static async create(email, hashedPassword, username) {
+  static async create(email, hashedPassword, username, name) {
     try {
       // check if user with same email exist
       let user = await this.findByEmail(email);
@@ -59,11 +59,12 @@ class UsersCollection {
 
       return await this.instance().usersCollection.insertOne({
         email,
+        name,
         password: hashedPassword,
         username,
       });
     } catch (err) {
-      throw new Error(`Error creating user: ${err}`);
+      throw new Error(err.message);
     }
   }
 
