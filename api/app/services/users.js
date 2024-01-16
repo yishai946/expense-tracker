@@ -107,4 +107,18 @@ module.exports = {
       res.status(500).json({ error: "Internal Server Error" });
     }
   },
+
+  //   get categories
+  getCategories: async (req, res) => {
+    try {
+      const { userId } = req.userId;
+
+      const user = await UsersCollection.findById(userId);
+
+      res.status(200).json({ categories: user.categories });
+    } catch (err) {
+      console.error(`Error getting categories: ${err}`);
+      res.status(500).json({ error: "Internal Server Error" });
+    }
+  },
 };

@@ -1,6 +1,8 @@
 import "../styles/App.css";
 import Expense from "../components/Expense";
 import { useState } from "react";
+import AddCategory from "../components/AddCategory";
+import DeleteCategory from "../components/DeleteCategory";
 
 export default function Home() {
   const [expenses, setExpenses] = useState([]);
@@ -48,20 +50,6 @@ export default function Home() {
     event.preventDefault();
     const selection = event.target.value;
     setChoice(selection);
-  }
-
-  function addCategory(event) {
-    event.preventDefault();
-    const newCategory = event.target.category.value;
-    setCategories([...categories, newCategory]);
-    event.target.category.value = "";
-  }
-
-  function deleteCategory(event) {
-    event.preventDefault();
-    setExpenses(expenses.filter((expense) => expense.category !== choice));
-    setCategories(categories.filter((category) => category !== choice));
-    setChoice("");
   }
 
   function selectCategory(event) {
@@ -116,46 +104,8 @@ export default function Home() {
       </section>
       <div className="container">
         <div>
-          <section className="addCategory">
-            <form onSubmit={addCategory}>
-              <input
-                placeholder={heb ? "הוסף קטגוריה" : "Add new categroy"}
-                type="text"
-                name="category"
-                className="input"
-                required
-                autoComplete="off"
-              />
-              <button type="submit" className="button">
-                {heb ? "הוסף" : "Add"}
-              </button>
-            </form>
-          </section>
-
-          <section className="deleteCategory">
-            <form onSubmit={deleteCategory}>
-              <select
-                name="selectOption"
-                required
-                onChange={handleSelection}
-                className="select"
-                defaultValue=""
-              >
-                <option value="" disabled>
-                  {heb ? "בחר קטגוריה" : "Select a category"}
-                </option>
-                {categories.map((category, i) => (
-                  <option value={category} key={i}>
-                    {category}
-                  </option>
-                ))}
-              </select>
-
-              <button type="submit" className="button">
-                {heb ? "מחק" : "Delete"}
-              </button>
-            </form>
-          </section>
+          <AddCategory heb={heb} />
+          <DeleteCategory heb={heb} />
         </div>
 
         <section className="newExpnse">
@@ -226,11 +176,15 @@ export default function Home() {
         </p>
       </section>
 
-      <button onClick={() => {
-        localStorage.removeItem("token");
-        localStorage.removeItem("expiry");
-        window.location.href = "/signin";
-      }}>logout</button>
+      <button
+        onClick={() => {
+          localStorage.removeItem("token");
+          localStorage.removeItem("expiry");
+          window.location.href = "/signin";
+        }}
+      >
+        logout
+      </button>
     </>
   );
 }

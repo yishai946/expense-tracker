@@ -15,6 +15,9 @@ router.delete("/delete-user", validateToken, services.deleteUser);
 // add category
 router.post("/add-category", validateToken, services.addCategory);
 
+// get categories
+router.get("/get-categories", validateToken, services.getCategories);
+
 // delete category
 router.delete("/delete-category/:category", validateToken, services.deleteCategory);
 

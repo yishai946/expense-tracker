@@ -84,7 +84,7 @@ class UsersCollection {
     try {
       // check if category already exist
       const user = await this.findById(userId);
-      if (user.categories.includes(category)) {
+      if (user.categories?.includes(category)) {
         throw new Error(`category already exist`);
       }
 
