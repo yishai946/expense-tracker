@@ -12,6 +12,9 @@ router.get("/getAll", validateToken, services.getAllExpenses);
 // get expense by id route
 router.get("/getOne/:id", validateToken, services.getExpenseById);
 
+// get expenses by category
+router.get("/getByCategory/:category", validateToken, services.getExpensesByCategory);
+
 // update expense route
 router.put("/update/:id", validateToken, services.updateExpense);
 

@@ -25,12 +25,13 @@ class ExpensesCollection {
   }
 
   //   add new expense
-  static async create(title, amount, date, category, userId) {
+  static async create(name, amount, date, time, category, userId) {
     try {
       await this.instance().expensesCollection.insertOne({
-        title,
+        name,
         amount,
         date,
+        time,
         category,
         userId,
       });
@@ -43,8 +44,8 @@ class ExpensesCollection {
   //   get all expenses
   static async getAll(userId) {
     try {
-      return await this.instance().expensesCollection
-        .find({ userId })
+      return await this.instance()
+        .expensesCollection.find({ userId })
         .toArray();
     } catch (err) {
       console.error(`Error getting all expenses: ${err}`);
@@ -93,6 +94,21 @@ class ExpensesCollection {
     } catch (err) {
       console.error(`Error deleting expense: ${err}`);
       throw new Error(`Error deleting expense`);
+    }
+  }
+
+  //  get expenses by category
+  static async findByCategory(category, userId) {
+    try {
+      return await this.instance()
+        .expensesCollection.find({
+          category,
+          userId,
+        })
+        .toArray();
+    } catch (err) {
+      console.error(`Error getting expenses by category: ${err}`);
+      throw new Error(`Error getting expenses by category`);
     }
   }
 }

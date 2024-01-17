@@ -5,9 +5,9 @@ module.exports = {
     // create new expense
     createExpense: async (req, res) => {
         try {
-            const { title, amount, date, category } = req.body;
+            const { name, amount, date, time, category } = req.body;
             const { userId } = req.userId;
-            await ExpensesCollection.create(title, amount, date, category, userId);
+            await ExpensesCollection.create(name, amount, date, time, category, userId);
             res.status(200).json({ success: true, message: "Expense added successfully" });
         } catch (err) {
             console.error(`Error adding expense: ${err}`);
@@ -35,6 +35,19 @@ module.exports = {
             res.status(200).json({ success: true, expense });
         } catch (err) {
             console.error(`Error getting expense by id: ${err}`);
+            res.status(500).json({ error: "Internal Server Error" });
+        }
+    },
+
+    // get expenses by category
+    getExpensesByCategory: async (req, res) => {
+        try {
+            const { category } = req.params;
+            const { userId } = req.userId;
+            const expenses = await ExpensesCollection.findByCategory(category, userId);
+            res.status(200).json({ success: true, expenses });
+        } catch (err) {
+            console.error(`Error getting expenses by category: ${err}`);
             res.status(500).json({ error: "Internal Server Error" });
         }
     },

@@ -60,59 +60,61 @@ function Signup() {
   };
 
   return (
-    <form className="form" onSubmit={handleSubmit}>
-      <p className="title">Signup </p>
-      <p className="message">Signup now and get full access to our app. </p>
-      <input
-        required
-        placeholder="Name"
-        type="text"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-        className="input"
-      />
-
-      <input
-        required
-        placeholder="Username"
-        type="text"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)} // [2 ]
-        className="input"
-      />
-
-      <input
-        required
-        placeholder="Email"
-        type="email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        className="input"
-      />
-
-      <input
-        required
-        placeholder="Password"
-        type="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        className="input"
-      />
-
-      <input
-        required
-        placeholder="Repeat Password"
-        type="password"
-        value={repeatPassword}
-        onChange={(e) => setRepeatPassword(e.target.value)}
-        className="input"
-      />
-
-      <button className="submit">Submit</button>
-      <p className="signin">
-        Already have an acount ? <Link to="/signin">Signin</Link>{" "}
-      </p>
-    </form>
+    <div style={{display: "flex", alignItems: "center", justifyContent: "center", height: "100vh"}}>
+      <form className="form" onSubmit={handleSubmit}>
+        <p className="title">Signup </p>
+        <p className="message">Signup now and get full access to our app. </p>
+        <input
+          required
+          placeholder="Name"
+          type="text"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          className="input"
+        />
+  
+        <input
+          required
+          placeholder="Username"
+          type="text"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)} // [2 ]
+          className="input"
+        />
+  
+        <input
+          required
+          placeholder="Email"
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          className="input"
+        />
+  
+        <input
+          required
+          placeholder="Password"
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          className="input"
+        />
+  
+        <input
+          required
+          placeholder="Repeat Password"
+          type="password"
+          value={repeatPassword}
+          onChange={(e) => setRepeatPassword(e.target.value)}
+          className="input"
+        />
+  
+        <button className="submit">Submit</button>
+        <p className="signin">
+          Already have an acount ? <Link to="/signin">Signin</Link>{" "}
+        </p>
+      </form>
+    </div>
   );
 }
 

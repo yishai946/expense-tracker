@@ -1,22 +1,15 @@
 import React, { useState, useEffect } from "react";
 import categoriesFunctions from "../functions/categories";
+import { useAppContext } from "../AppContext";
 
-function DeleteCategory({ heb }) {
-  const [categories, setCategories] = useState([]);
-  const [choice, setChoice] = useState("");
-
-  useEffect(() => {
-    async function fetchData() {
-      const response = await categoriesFunctions.getCategories();
-      setCategories(response.categories);
-    }
-    fetchData();
-  }, []);
+function DeleteCategory() {
+    const {categories, fetchCategories, heb} = useAppContext();
+    const [choice, setChoice] = useState("");
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    await categoriesFunctions.deleteCategory({ category: choice });
-    setCategories(categories.filter((category) => category !== choice));
+    const result = await categoriesFunctions.deleteCategory(choice);
+    await fetchCategories();
     setChoice("");
   };
 

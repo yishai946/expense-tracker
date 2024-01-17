@@ -40,7 +40,25 @@ const categoriesFunctions = {
     }
   },
 
-  
+  deleteCategory: async (category) => {
+    try {
+      // send delete category request to server
+      const response = await fetch(
+        `http://localhost:3000/api/users/delete-category/${category}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      // return response
+      return response.json();
+    } catch (err) {
+      console.log(err);
+    }
+  }
 };
 
 export default categoriesFunctions;

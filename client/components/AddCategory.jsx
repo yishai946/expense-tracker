@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import categoriesFunctions from "../functions/categories";
+import { useAppContext } from "../AppContext";
 
-function AddCategory({ addCategory, heb }) {
+function AddCategory() {
+  const { fetchCategories, heb } = useAppContext();
   const [input, setInput] = useState("");
 
   const handleChange = (event) => {
@@ -11,6 +13,7 @@ function AddCategory({ addCategory, heb }) {
   const handleSubmit = async (event) => {
     event.preventDefault();
     await categoriesFunctions.addCategory({ category: input });
+    fetchCategories();
     setInput("");
   };
 

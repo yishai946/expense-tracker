@@ -33,24 +33,33 @@ function Signin() {
   };
 
   return (
-    <form className="form" onSubmit={handleSubmit}>
-      <p className="title">Signin </p>
-      <p className="message">Sign in now and enjoy!</p>
+    <div
+      style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100vh" }}
+    >
+      <form className="form" onSubmit={handleSubmit}>
+        <p className="title">Signin </p>
+        <p className="message">Sign in now and enjoy!</p>
 
-      <input required="" placeholder="Username" type="text" className="input" />
+        <input
+          required=""
+          placeholder="Username"
+          type="text"
+          className="input"
+        />
 
-      <input
-        required=""
-        placeholder="Password"
-        type="password"
-        className="input"
-      />
+        <input
+          required=""
+          placeholder="Password"
+          type="password"
+          className="input"
+        />
 
-      <button className="submit">Signin</button>
-      <p className="signin">
-        Don't have an acount ? <Link to="/signup">Signup</Link>{" "}
-      </p>
-    </form>
+        <button className="submit">Signin</button>
+        <p className="signin">
+          Don't have an acount ? <Link to="/signup">Signup</Link>{" "}
+        </p>
+      </form>
+    </div>
   );
 }
 

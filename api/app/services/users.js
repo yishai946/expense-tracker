@@ -99,6 +99,7 @@ module.exports = {
       const { userId } = req.userId;
       const { category } = req.params;
 
+      console.log(category)
       await UsersCollection.deleteCategory(userId, category);
 
       res.status(200).json({ success: true, message: "Category deleted" });
