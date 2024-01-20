@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { useAppContext } from "../AppContext";
+import { useExpensesContext } from "../context/ExpensesContext";
 
-function Categories() {
-  const { categories, heb, currentCategory, selectCategory } = useAppContext();
+function Categories({ categories, currentCategory, selectCategory }) {
+  const { heb } = useExpensesContext();
 
   return (
     <section className="button-container">

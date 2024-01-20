@@ -1,21 +1,21 @@
 const { ObjectId } = require("mongodb");
 const MongoDB = require("./mongodb");
 
-class ExpensesCollection {
+class IncomesCollection {
   constructor() {
-    this.expensesCollection = MongoDB.instance().db().collection("expenses");
+    this.incomesCollection = MongoDB.instance().db().collection("incomes");
   }
 
   static instance() {
     if (!this._instance) {
-      this._instance = new ExpensesCollection();
+      this._instance = new IncomesCollection();
     }
     return this._instance;
   }
 
   static async findById(id) {
     try {
-      return await this.instance().expensesCollection.findOne({
+      return await this.instance().incomesCollection.findOne({
         _id: new ObjectId(id),
       });
     } catch (err) {
@@ -24,10 +24,10 @@ class ExpensesCollection {
     }
   }
 
-  //   add new expense
+  //   add new income
   static async create(name, amount, date, time, category, userId) {
     try {
-      await this.instance().expensesCollection.insertOne({
+      await this.instance().incomesCollection.insertOne({
         name,
         amount,
         date,
@@ -36,39 +36,39 @@ class ExpensesCollection {
         userId,
       });
     } catch (err) {
-      console.error(`Error creating expense: ${err}`);
-      throw new Error(`Error creating expense`);
+      console.error(`Error creating income: ${err}`);
+      throw new Error(`Error creating income`);
     }
   }
 
-  //   get all expenses
+  //   get all incomes
   static async getAll(userId) {
     try {
       return await this.instance()
-        .expensesCollection.find({ userId })
+        .incomesCollection.find({ userId })
         .toArray();
     } catch (err) {
-      console.error(`Error getting all expenses: ${err}`);
-      throw new Error(`Error getting all expenses`);
+      console.error(`Error getting all incomes: ${err}`);
+      throw new Error(`Error getting all incomes`);
     }
   }
 
-  //  get expense by id
+  //  get income by id
   static async findById(id) {
     try {
-      return await this.instance().expensesCollection.findOne({
+      return await this.instance().incomesCollection.findOne({
         _id: new ObjectId(id),
       });
     } catch (err) {
-      console.error(`Error getting expense by id: ${err}`);
-      throw new Error(`Error getting expense by id`);
+      console.error(`Error getting income by id: ${err}`);
+      throw new Error(`Error getting income by id`);
     }
   }
 
-  //   update expense
+  //   update income
   static async update(id, name, amount, date, category) {
     try {
-      await this.instance().expensesCollection.updateOne(
+      await this.instance().incomesCollection.updateOne(
         { _id: new ObjectId(id) },
         {
           $set: {
@@ -80,37 +80,37 @@ class ExpensesCollection {
         }
       );
     } catch (err) {
-      console.error(`Error updating expense: ${err}`);
-      throw new Error(`Error updating expense`);
+      console.error(`Error updating income: ${err}`);
+      throw new Error(`Error updating income`);
     }
   }
 
-  //   delete expense
+  //   delete income
   static async delete(id) {
     try {
-      await this.instance().expensesCollection.deleteOne({
+      await this.instance().incomesCollection.deleteOne({
         _id: new ObjectId(id),
       });
     } catch (err) {
-      console.error(`Error deleting expense: ${err}`);
-      throw new Error(`Error deleting expense`);
+      console.error(`Error deleting income: ${err}`);
+      throw new Error(`Error deleting income`);
     }
   }
 
-  //  get expenses by category
+  //  get incomes by category
   static async findByCategory(category, userId) {
     try {
       return await this.instance()
-        .expensesCollection.find({
+        .incomesCollection.find({
           category,
           userId,
         })
         .toArray();
     } catch (err) {
-      console.error(`Error getting expenses by category: ${err}`);
-      throw new Error(`Error getting expenses by category`);
+      console.error(`Error getting incomes by category: ${err}`);
+      throw new Error(`Error getting incomes by category`);
     }
   }
 }
 
-module.exports = ExpensesCollection;
+module.exports = IncomesCollection;

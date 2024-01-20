@@ -1,4 +1,4 @@
-const categoriesFunctions = {
+const categoriesExpensesFunctions = {
   addCategory: async (category) => {
     try {
       // send new category request to server
@@ -61,4 +61,4 @@ const categoriesFunctions = {
   }
 };
 
-export default categoriesFunctions;
+export default categoriesExpensesFunctions;

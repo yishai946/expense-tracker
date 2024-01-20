@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import ExpensesFunctions from "../functions/Expenses";
-import { useAppContext } from "../AppContext";
+import { useExpensesContext } from "../context/ExpensesContext";
 
-function NewExpense() {
-  const { categories, heb, fetchExpenses } = useAppContext();
+function NewItem({ categories, fetch, add }) {
+  const { heb } = useExpensesContext();
   const [name, setName] = useState("");
   const [amount, setAmount] = useState("");
   const [date, setDate] = useState("");
@@ -16,7 +15,7 @@ function NewExpense() {
     setChoice(selection);
   };
 
-  const addExpense = async (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
     // Extracting the date and time from the datetime-local input
@@ -38,7 +37,7 @@ function NewExpense() {
       minutes < 10 ? "0" + minutes : minutes
     }:${seconds < 10 ? "0" + seconds : seconds}`;
 
-    await ExpensesFunctions.addExpense({
+    await add({
       name,
       amount,
       date: formattedDate,
@@ -46,17 +45,16 @@ function NewExpense() {
       category: choice,
     });
 
-    await fetchExpenses();
+    await fetch();
     setName("");
     setAmount("");
     setDate(""); // Clear the date after submitting the form
     setChoice("");
   };
 
-
   return (
     <section className="newExpnse">
-      <form onSubmit={addExpense}>
+      <form onSubmit={handleSubmit}>
         <input
           placeholder={heb ? "שם" : "Name"}
           type="text"
@@ -108,4 +106,4 @@ function NewExpense() {
   );
 }
 
-export default NewExpense;
+export default NewItem;

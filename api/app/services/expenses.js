@@ -56,8 +56,8 @@ module.exports = {
     updateExpense: async (req, res) => {
         try {
             const { id } = req.params;
-            const { title, amount, date, category } = req.body;
-            await ExpensesCollection.update(id, title, amount, date, category);
+            const { name, amount, date, category } = req.body;
+            await ExpensesCollection.update(id, name, amount, date, category);
             res.status(200).json({ success: true, message: "Expense updated successfully" });
         } catch (err) {
             console.error(`Error updating expense: ${err}`);

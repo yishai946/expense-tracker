@@ -1,6 +1,6 @@
 import "../styles/Expense.css";
 
-export default function expense({ name, price, date, time, category }) {
+export default function Item({ name, price, date, time, category }) {
   return (
     <div className="card">
       <p>{name}</p>

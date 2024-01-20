@@ -1,33 +1,57 @@
 import "../styles/App.css";
-import { useAppContext } from "../AppContext";
+import { useExpensesContext } from "../context/ExpensesContext";
 import AddCategory from "../components/AddCategory";
 import DeleteCategory from "../components/DeleteCategory";
 import Lang from "../components/Lang";
 import Categories from "../components/Categories";
-import NewExpense from "../components/NewExpense";
-import ExpensesList from "../components/ExpensesList";
+import NewItem from "../components/NewItem";
+import List from "../components/List";
 import LogoutButton from "../components/LogoutButton";
 import Navigator from "../components/Navigator";
 
 export default function Expenses() {
-  const { heb } = useAppContext();
+  const {
+    heb,
+    expenses,
+    addExpense,
+    deleteExpenseCategory,
+    addExpenseCategory,
+    fetchExpenses,
+    fetchCategoriesExpenses,
+    categoriesExpenses,
+    currentExpenseCategory,
+    selectExpenseCategory,
+  } = useExpensesContext();
 
   return (
     <>
       <Navigator />
       <Lang />
       <LogoutButton />
-      <h1>
-        {heb ? "מעקב הוצאות" : "Expense Tracker"}
-      </h1>
-      <Categories />
+      <h1>{heb ? "מעקב הוצאות" : "Income Tracker"}</h1>
+      <Categories
+        categories={categoriesExpenses}
+        selectCategory={selectExpenseCategory}
+        currentCategory={currentExpenseCategory}
+      />
       <div className="container">
         <div className="miniContainer">
-          <AddCategory heb={heb} />
-          <DeleteCategory heb={heb} />
+          <AddCategory
+            fetchCategories={fetchCategoriesExpenses}
+            addCategory={addExpenseCategory}
+          />
+          <DeleteCategory
+            deleteCategory={deleteExpenseCategory}
+            categories={categoriesExpenses}
+            fetchCategories={fetchCategoriesExpenses}
+          />
         </div>
-        <NewExpense />
-        <ExpensesList />
+        <NewItem
+          add={addExpense}
+          fetch={fetchExpenses}
+          categories={categoriesExpenses}
+        />
+        <List data={expenses} currentCategory={currentExpenseCategory} />
       </div>
 
       {/* <section className="total" id="total">
