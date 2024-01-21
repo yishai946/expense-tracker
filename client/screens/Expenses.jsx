@@ -2,7 +2,6 @@ import "../styles/App.css";
 import { useExpensesContext } from "../context/ExpensesContext";
 import AddCategory from "../components/AddCategory";
 import DeleteCategory from "../components/DeleteCategory";
-import Lang from "../components/Lang";
 import Categories from "../components/Categories";
 import NewItem from "../components/NewItem";
 import List from "../components/List";
@@ -11,7 +10,6 @@ import Navigator from "../components/Navigator";
 
 export default function Expenses() {
   const {
-    heb,
     expenses,
     addExpense,
     deleteExpenseCategory,
@@ -26,9 +24,8 @@ export default function Expenses() {
   return (
     <>
       <Navigator />
-      <Lang />
       <LogoutButton />
-      <h1>{heb ? "מעקב הוצאות" : "Income Tracker"}</h1>
+      <h1>Expenses Tracker</h1>
       <Categories
         categories={categoriesExpenses}
         selectCategory={selectExpenseCategory}
@@ -56,7 +53,7 @@ export default function Expenses() {
 
       {/* <section className="total" id="total">
         <p>
-          {heb ? "בסך הכל: " : "Total: "}
+          Total:
           {total}₪
         </p>
       </section> */}

@@ -1,9 +1,6 @@
 import React, { useState } from "react";
-import categoriesFunctions from "../functions/categoriesExpenses";
-import { useExpensesContext } from "../context/ExpensesContext";
 
 function AddCategory({ fetchCategories, addCategory }) {
-  const { heb } = useExpensesContext();
   const [input, setInput] = useState("");
 
   const handleChange = (event) => {
@@ -13,7 +10,7 @@ function AddCategory({ fetchCategories, addCategory }) {
   const handleSubmit = async (event) => {
     event.preventDefault();
     await addCategory({ category: input });
-    fetchCategories();
+    await fetchCategories();
     setInput("");
   };
 
@@ -21,7 +18,7 @@ function AddCategory({ fetchCategories, addCategory }) {
     <section className="addCategory">
       <form onSubmit={handleSubmit}>
         <input
-          placeholder={heb ? "הוסף קטגוריה" : "Add new categroy"}
+          placeholder="Add new categroy"
           type="text"
           name="category"
           className="input"
@@ -31,7 +28,7 @@ function AddCategory({ fetchCategories, addCategory }) {
           onChange={handleChange}
         />
         <button type="submit" className="button">
-          {heb ? "הוסף" : "Add"}
+          Add
         </button>
       </form>
     </section>

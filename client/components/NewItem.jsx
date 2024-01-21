@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useExpensesContext } from "../context/ExpensesContext";
 
 function NewItem({ categories, fetch, add }) {
-  const { heb } = useExpensesContext();
   const [name, setName] = useState("");
   const [amount, setAmount] = useState("");
   const [date, setDate] = useState("");
@@ -56,7 +55,7 @@ function NewItem({ categories, fetch, add }) {
     <section className="newExpnse">
       <form onSubmit={handleSubmit}>
         <input
-          placeholder={heb ? "שם" : "Name"}
+          placeholder="Name"
           type="text"
           className="input"
           value={name}
@@ -69,7 +68,7 @@ function NewItem({ categories, fetch, add }) {
           className="input"
           value={amount}
           onChange={(event) => setAmount(event.target.value)}
-          placeholder={heb ? "מחיר" : "Price"}
+          placeholder="Price"
           required
           autoComplete="off"
         />
@@ -81,7 +80,7 @@ function NewItem({ categories, fetch, add }) {
           defaultValue=""
         >
           <option value="" disabled>
-            {heb ? "בחר קטגוריה" : "Select a category"}
+            Select a category
           </option>
           {categories.map((category, i) => (
             <option value={category} key={i}>
@@ -99,7 +98,7 @@ function NewItem({ categories, fetch, add }) {
           autoComplete="off"
         />
         <button type="submit" className="button">
-          {heb ? "הוסף" : "Add"}
+          Add
         </button>
       </form>
     </section>

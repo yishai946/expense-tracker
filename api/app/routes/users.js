@@ -21,4 +21,13 @@ router.get("/get-categories", validateToken, services.getCategories);
 // delete category
 router.delete("/delete-category/:category", validateToken, services.deleteCategory);
 
+// add income category
+router.post("/add-income-category", validateToken, services.addIncomeCategory);
+
+// get income categories
+router.get("/get-income-categories", validateToken, services.getIncomeCategories);
+
+// delete income category
+router.delete("/delete-income-category/:category", validateToken, services.deleteIncomeCategory);
+
 module.exports = router;

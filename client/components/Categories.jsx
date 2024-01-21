@@ -1,8 +1,6 @@
-import React, { useState } from "react";
-import { useExpensesContext } from "../context/ExpensesContext";
+import React from "react";
 
 function Categories({ categories, currentCategory, selectCategory }) {
-  const { heb } = useExpensesContext();
 
   return (
     <section className="button-container">
@@ -11,7 +9,7 @@ function Categories({ categories, currentCategory, selectCategory }) {
         className={currentCategory == "All" ? "button-selected" : "button"}
         onClick={selectCategory}
       >
-        {heb ? "הכל" : "All"}
+        All
       </button>
       {categories.map((category, i) => (
         <button

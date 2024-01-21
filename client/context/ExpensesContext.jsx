@@ -6,7 +6,6 @@ const ExpensesContext = createContext();
 
 export const ExpensesProvider = ({ children }) => {
   const [categoriesExpenses, setCategoriesExpenses] = useState([]);
-  const [heb, setHeb] = useState(true);
   const [currentExpenseCategory, setCurrentExpenseCategory] = useState("All");
   const [expenses, setExpenses] = useState([]);
 
@@ -22,10 +21,6 @@ export const ExpensesProvider = ({ children }) => {
       fetchExpenseByCategory();
     }
   }, [currentExpenseCategory]);
-
-  const changeLang = () => {
-    setHeb(!heb);
-  };
 
   const fetchCategoriesExpenses = async () => {
     const response = await categoriesExpensesFunctions.getCategories();
@@ -69,8 +64,6 @@ export const ExpensesProvider = ({ children }) => {
         categoriesExpenses,
         setCategoriesExpenses,
         fetchCategoriesExpenses,
-        heb,
-        changeLang,
         currentExpenseCategory,
         selectExpenseCategory,
         expenses,

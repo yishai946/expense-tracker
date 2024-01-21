@@ -1,14 +1,12 @@
-import React, { useState, useEffect } from "react";
-import { useExpensesContext } from "../context/ExpensesContext";
+import React, { useState } from "react";
 
 function DeleteCategory({ categories, fetchCategories, deleteCategory }) {
-  const { heb } = useExpensesContext();
   const [choice, setChoice] = useState("");
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     await deleteCategory(choice);
-    await fetchCategories();
+    fetchCategories();
     setChoice("");
   };
 
@@ -29,7 +27,7 @@ function DeleteCategory({ categories, fetchCategories, deleteCategory }) {
           defaultValue=""
         >
           <option value="" disabled>
-            {heb ? "בחר קטגוריה" : "Select a category"}
+            Select a category
           </option>
           {categories.map((category, i) => (
             <option value={category} key={i}>
@@ -39,7 +37,7 @@ function DeleteCategory({ categories, fetchCategories, deleteCategory }) {
         </select>
 
         <button type="submit" className="button">
-          {heb ? "מחק" : "Delete"}
+          Delete
         </button>
       </form>
     </section>

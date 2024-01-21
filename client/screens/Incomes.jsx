@@ -1,62 +1,59 @@
 import "../styles/App.css";
-import { useExpensesContext } from "../context/ExpensesContext";
+import { useIncomesContext } from "../context/IncomesContext";
 import AddCategory from "../components/AddCategory";
 import DeleteCategory from "../components/DeleteCategory";
-import Lang from "../components/Lang";
 import Categories from "../components/Categories";
 import NewItem from "../components/NewItem";
 import List from "../components/List";
 import LogoutButton from "../components/LogoutButton";
 import Navigator from "../components/Navigator";
 
-export default function Expenses() {
+export default function Incomes() {
   const {
-    heb,
-    expenses,
-    addExpense,
-    deleteExpenseCategory,
-    addExpenseCategory,
-    fetchExpenses,
-    fetchCategoriesExpenses,
-    categoriesExpenses,
-    currentExpenseCategory,
-    selectExpenseCategory,
-  } = useExpensesContext();
+    incomes,
+    addIncome,
+    deleteIncomeCategory,
+    addIncomeCategory,
+    fetchIncomes,
+    fetchCategoriesIncomes,
+    categoriesIncomes,
+    currentIncomeCategory,
+    selectIncomeCategory,
+  } = useIncomesContext();
 
   return (
     <>
       <Navigator />
-      <Lang />
       <LogoutButton />
-      <h1>{heb ? "מעקב הכנסות" : "Income Tracker"}</h1>
+      <h1>Income Tracker</h1>
       <Categories
-        categories={categoriesExpenses}
-        selectCategory={selectExpenseCategory}
-        currentCategory={currentExpenseCategory}
+        categories={categoriesIncomes}
+        selectCategory={selectIncomeCategory}
+        currentCategory={currentIncomeCategory}
       />
       <div className="container">
         <div className="miniContainer">
           <AddCategory
-            fetchCategories={fetchCategoriesExpenses}
-            addCategory={addExpenseCategory}
+            fetchCategories={fetchCategoriesIncomes}
+            addCategory={addIncomeCategory}
           />
           <DeleteCategory
-            deleteCategory={deleteExpenseCategory}
-            categories={categoriesExpenses}
-            fetchCategories={fetchCategoriesExpenses}
+            deleteCategory={deleteIncomeCategory}
+            categories={categoriesIncomes}
+            fetchCategories={fetchCategoriesIncomes}
           />
         </div>
         <NewItem
-          add={addExpense}
-          fetch={fetchExpenses}
-          categories={categoriesExpenses}
+          add={addIncome}
+          fetch={fetchIncomes}
+          categories={categoriesIncomes}
         />
-        <List data={expenses} currentCategory={currentExpenseCategory} />
+        <List data={incomes} currentCategory={currentIncomeCategory} />
       </div>
 
       {/* <section className="total" id="total">
         <p>
-          {heb ? "בסך הכל: " : "Total: "}
+          Total: 
           {total}₪
         </p>
       </section> */}

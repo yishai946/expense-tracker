@@ -1,6 +1,6 @@
-import { createContext, useContext, useState, useEffect } from "react";
-import categoriesIncomesFunctions from "../functions/categoriesIncomes";
+import { createContext, useEffect, useState, useContext } from "react";
 import IncomesFunctions from "../functions/Incomes";
+import categoriesIncomesFunctions from "../functions/categoriesIncomes";
 
 const IncomesContext = createContext();
 
@@ -67,6 +67,7 @@ export const IncomesProvider = ({ children }) => {
         categoriesIncomes,
         fetchCategoriesIncomes,
         addIncomeCategory,
+        fetchIncomes,
         deleteIncomeCategory,
         currentIncomeCategory,
         selectIncomeCategory,
@@ -79,3 +80,8 @@ export const IncomesProvider = ({ children }) => {
     </IncomesContext.Provider>
   );
 };
+
+export const useIncomesContext = () => {
+  return useContext(IncomesContext);
+};
+

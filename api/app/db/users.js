@@ -108,6 +108,35 @@ class UsersCollection {
       throw new Error(`Error deleting category: ${err.message}`);
     }
   }
+
+  static async addIncomeCategory(userId, category) {
+    try {
+      // check if category already exist
+      const user = await this.findById(userId);
+      if (user.incomeCategories?.includes(category)) {
+        throw new Error(`category already exist`);
+      }
+
+      return await this.instance().usersCollection.updateOne(
+        { _id: new ObjectId(userId) },
+        { $addToSet: { incomeCategories: category } }
+      );
+    } catch (err) {
+      throw new Error(`Error adding category: ${err.message}`);
+    }
+  }
+
+  static async deleteIncomeCategory(userId, category) {
+    try {
+      return await this.instance().usersCollection.updateOne(
+        { _id: new ObjectId(userId) },
+        { $pull: { incomeCategories: category } }
+      );
+    } catch (err) {
+      console.error(`Error deleting category: ${err}`);
+      throw new Error(`Error deleting category: ${err.message}`);
+    }
+  }
 }
 
 module.exports = UsersCollection;
