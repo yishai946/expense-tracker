@@ -8,11 +8,14 @@ const categoriesExpensesFunctions = {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            "Authorization": `Bearer ${localStorage.getItem("token")}`,
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
           body: JSON.stringify(category),
         }
       );
+
+      categoriesExpensesFunctions.checkAuth(response);
+
       // return response
       return response.json();
     } catch (err) {
@@ -29,10 +32,13 @@ const categoriesExpensesFunctions = {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
-            "Authorization": `Bearer ${localStorage.getItem("token")}`,
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         }
       );
+
+      categoriesExpensesFunctions.checkAuth(response);
+
       // return response
       return response.json();
     } catch (err) {
@@ -49,16 +55,29 @@ const categoriesExpensesFunctions = {
           method: "DELETE",
           headers: {
             "Content-Type": "application/json",
-            "Authorization": `Bearer ${localStorage.getItem("token")}`,
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         }
       );
+      categoriesExpensesFunctions.checkAuth(response);
+
       // return response
       return response.json();
     } catch (err) {
       console.log(err);
     }
-  }
+  },
+
+  checkAuth: (response) => {
+    // check if token and expiry exist
+    if (response.status === 401 || response.status === 403) {
+      localStorage.removeItem("token");
+      localStorage.removeItem("expiry");
+      window.location.href = "/signin";
+      return false;
+    }
+    return true;
+  },
 };
 
 export default categoriesExpensesFunctions;

@@ -49,10 +49,10 @@ module.exports = {
       }
 
       const token = jwt.sign({ userId: user._id }, process.env.JWT_KEY, {
-        expiresIn: "3h",
+        expiresIn: "12h",
       });
 
-      const expiry = new Date(Date.now() + 3 * 60 * 60 * 1000);
+      const expiry = new Date(Date.now() + 12 * 60 * 60 * 1000);
 
       res.status(200).json({ token, expiry });
     } catch (err) {

@@ -10,18 +10,22 @@ export const IncomesProvider = ({ children }) => {
   const [incomes, setIncomes] = useState([]);
 
   useEffect(() => {
-    // Fetch initial categories and set them in the context
-    fetchCategoriesIncomes();
+    const token = localStorage.getItem("token");
+    if (token) {
+      fetchCategoriesIncomes();
+    }
   }, []);
 
   useEffect(() => {
-    if (currentIncomeCategory === "All") {
-      fetchIncomes();
-    } else {
-      fetchIncomeByCategory();
+    const token = localStorage.getItem("token");
+    if(token) {
+      if (currentIncomeCategory === "All") {
+        fetchIncomes();
+      } else {
+        fetchIncomeByCategory();
+      }
     }
   }, [currentIncomeCategory]);
-
 
   const fetchCategoriesIncomes = async () => {
     const response = await categoriesIncomesFunctions.getCategories();
@@ -84,4 +88,3 @@ export const IncomesProvider = ({ children }) => {
 export const useIncomesContext = () => {
   return useContext(IncomesContext);
 };
-

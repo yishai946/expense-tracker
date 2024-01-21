@@ -13,6 +13,9 @@ const categoriesIncomesFunctions = {
           body: JSON.stringify(category),
         }
       );
+
+      categoriesIncomesFunctions.checkAuth(response);
+
       // return response
       return response.json();
     } catch (err) {
@@ -33,6 +36,9 @@ const categoriesIncomesFunctions = {
           },
         }
       );
+
+      categoriesIncomesFunctions.checkAuth(response);
+
       // return response
       return response.json();
     } catch (err) {
@@ -53,11 +59,25 @@ const categoriesIncomesFunctions = {
           },
         }
       );
+
+      categoriesIncomesFunctions.checkAuth(response);
+
       // return response
       return response.json();
     } catch (err) {
       console.log(err);
     }
+  },
+
+  checkAuth: (response) => {
+    // check if token and expiry exist
+    if (response.status === 401 || response.status === 403) {
+      localStorage.removeItem("token");
+      localStorage.removeItem("expiry");
+      window.location.href = "/signin";
+      return false;
+    }
+    return true;
   },
 };
 

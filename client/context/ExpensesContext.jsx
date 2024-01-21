@@ -10,15 +10,20 @@ export const ExpensesProvider = ({ children }) => {
   const [expenses, setExpenses] = useState([]);
 
   useEffect(() => {
-    // Fetch initial categories and set them in the context
-    fetchCategoriesExpenses();
+    const token = localStorage.getItem("token");
+    if (token) {
+      fetchCategoriesExpenses();
+    }
   }, []);
 
   useEffect(() => {
-    if (currentExpenseCategory === "All") {
-      fetchExpenses();
-    } else {
-      fetchExpenseByCategory();
+    const token = localStorage.getItem("token");
+    if (token) {
+      if (currentExpenseCategory === "All") {
+        fetchExpenses();
+      } else {
+        fetchExpenseByCategory();
+      }
     }
   }, [currentExpenseCategory]);
 

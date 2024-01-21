@@ -12,6 +12,9 @@ const ExpensesFunctions = {
           },
         }
       );
+
+      ExpensesFunctions.checkAuth(response);
+
       return response.json();
     } catch (error) {
       console.log(error);
@@ -31,6 +34,9 @@ const ExpensesFunctions = {
           },
         }
       );
+
+      ExpensesFunctions.checkAuth(response);
+
       return response.json();
     } catch (error) {
       console.log(error);
@@ -48,10 +54,24 @@ const ExpensesFunctions = {
         },
         body: JSON.stringify(expense),
       });
+
+      ExpensesFunctions.checkAuth(response);
+
       return response.json();
     } catch (error) {
       console.log(error);
     }
+  },
+
+  checkAuth: (response) => {
+    // check if token and expiry exist
+    if (response.status === 401 || response.status === 403) {
+      localStorage.removeItem("token");
+      localStorage.removeItem("expiry");
+      window.location.href = "/signin";
+      return false;
+    }
+    return true;
   },
 };
 
