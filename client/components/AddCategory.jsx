@@ -1,9 +1,6 @@
 import React, { useState } from "react";
-import categoriesFunctions from "../functions/categories";
-import { useAppContext } from "../AppContext";
 
-function AddCategory() {
-  const { fetchCategories, heb } = useAppContext();
+function AddCategory({ fetchCategories, addCategory }) {
   const [input, setInput] = useState("");
 
   const handleChange = (event) => {
@@ -12,8 +9,8 @@ function AddCategory() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    await categoriesFunctions.addCategory({ category: input });
-    fetchCategories();
+    await addCategory({ category: input });
+    await fetchCategories();
     setInput("");
   };
 
@@ -21,7 +18,7 @@ function AddCategory() {
     <section className="addCategory">
       <form onSubmit={handleSubmit}>
         <input
-          placeholder={heb ? "הוסף קטגוריה" : "Add new categroy"}
+          placeholder="Add new categroy"
           type="text"
           name="category"
           className="input"
@@ -31,7 +28,7 @@ function AddCategory() {
           onChange={handleChange}
         />
         <button type="submit" className="button">
-          {heb ? "הוסף" : "Add"}
+          Add
         </button>
       </form>
     </section>

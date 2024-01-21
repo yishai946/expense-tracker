@@ -1,9 +1,7 @@
 import React, { useState } from "react";
-import ExpensesFunctions from "../functions/Expenses";
-import { useAppContext } from "../AppContext";
+import { useExpensesContext } from "../context/ExpensesContext";
 
-function NewExpense() {
-  const { categories, heb, fetchExpenses } = useAppContext();
+function NewItem({ categories, fetch, add }) {
   const [name, setName] = useState("");
   const [amount, setAmount] = useState("");
   const [date, setDate] = useState("");
@@ -16,7 +14,7 @@ function NewExpense() {
     setChoice(selection);
   };
 
-  const addExpense = async (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
     // Extracting the date and time from the datetime-local input
@@ -38,7 +36,7 @@ function NewExpense() {
       minutes < 10 ? "0" + minutes : minutes
     }:${seconds < 10 ? "0" + seconds : seconds}`;
 
-    await ExpensesFunctions.addExpense({
+    await add({
       name,
       amount,
       date: formattedDate,
@@ -46,19 +44,18 @@ function NewExpense() {
       category: choice,
     });
 
-    await fetchExpenses();
+    await fetch();
     setName("");
     setAmount("");
     setDate(""); // Clear the date after submitting the form
     setChoice("");
   };
 
-
   return (
     <section className="newExpnse">
-      <form onSubmit={addExpense}>
+      <form onSubmit={handleSubmit}>
         <input
-          placeholder={heb ? "שם" : "Name"}
+          placeholder="Name"
           type="text"
           className="input"
           value={name}
@@ -71,7 +68,7 @@ function NewExpense() {
           className="input"
           value={amount}
           onChange={(event) => setAmount(event.target.value)}
-          placeholder={heb ? "מחיר" : "Price"}
+          placeholder="Price"
           required
           autoComplete="off"
         />
@@ -83,7 +80,7 @@ function NewExpense() {
           defaultValue=""
         >
           <option value="" disabled>
-            {heb ? "בחר קטגוריה" : "Select a category"}
+            Select a category
           </option>
           {categories.map((category, i) => (
             <option value={category} key={i}>
@@ -101,11 +98,11 @@ function NewExpense() {
           autoComplete="off"
         />
         <button type="submit" className="button">
-          {heb ? "הוסף" : "Add"}
+          Add
         </button>
       </form>
     </section>
   );
 }
 
-export default NewExpense;
+export default NewItem;

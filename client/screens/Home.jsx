@@ -1,12 +1,15 @@
-import React from 'react'
-import Navigator from '../components/Navigator'
+import React from "react";
+import LogoutButton from "../components/LogoutButton";
+import Navigator from "../components/Navigator";
 
 function Home() {
   return (
-    <div>Home
-        <Navigator />
+    <div>
+      Home
+      <LogoutButton />
+      <Navigator />
     </div>
-  )
+  );
 }
 
-export default Home
+export default Home;

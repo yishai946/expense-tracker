@@ -1,9 +1,9 @@
 import React from "react";
-import { useAppContext } from "../AppContext";
+import { useExpensesContext } from "../context/ExpensesContext";
 
 function Lang() {
-  const { changeLang } = useAppContext();
-  
+  const { changeLang } = useExpensesContext();
+
   return (
     <div className="btn-container">
       <label className="switch btn-color-mode-switch">

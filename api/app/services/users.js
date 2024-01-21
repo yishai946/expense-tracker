@@ -122,4 +122,51 @@ module.exports = {
       res.status(500).json({ error: "Internal Server Error" });
     }
   },
+
+  //   add income category
+  addIncomeCategory: async (req, res) => {
+    try {
+      const { userId } = req.userId;
+      const { category } = req.body;
+
+      await UsersCollection.addIncomeCategory(userId, category);
+
+      res.status(200).json({ success: true, message: "Category added" });
+    } catch (err) {
+      if (err.message === "Error adding category: category already exist") {
+        return res.status(400).json({ error: err.message });
+      }
+      console.error(`Error adding category: ${err}`);
+      return res.status(500).json({ error: "Internal Server Error" });
+    }
+  },
+
+  //   delete income category
+  deleteIncomeCategory: async (req, res) => {
+    try {
+      const { userId } = req.userId;
+      const { category } = req.params;
+
+      await UsersCollection.deleteIncomeCategory(userId, category);
+
+      res.status(200).json({ success: true, message: "Category deleted" });
+    } catch (err) {
+      console.error(`Error deleting category: ${err}`);
+      res.status(500).json({ error: "Internal Server Error" });
+    }
+  },
+
+  //   get income categories
+  getIncomeCategories: async (req, res) => {
+    try {
+      const { userId } = req.userId;
+
+      const user = await UsersCollection.findById(userId);
+
+      res.status(200).json({ categories: user.incomeCategories });
+    } catch (err) {
+      console.error(`Error getting categories: ${err}`);
+      res.status(500).json({ error: "Internal Server Error" });
+    }
+  },
 };

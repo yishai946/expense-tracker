@@ -1,8 +1,6 @@
-import React, { useState } from "react";
-import { useAppContext } from "../AppContext";
+import React from "react";
 
-function Categories() {
-  const { categories, heb, currentCategory, selectCategory } = useAppContext();
+function Categories({ categories, currentCategory, selectCategory }) {
 
   return (
     <section className="button-container">
@@ -11,7 +9,7 @@ function Categories() {
         className={currentCategory == "All" ? "button-selected" : "button"}
         onClick={selectCategory}
       >
-        {heb ? "הכל" : "All"}
+        All
       </button>
       {categories.map((category, i) => (
         <button
