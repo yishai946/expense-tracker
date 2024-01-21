@@ -63,6 +63,11 @@ export const IncomesProvider = ({ children }) => {
 
   const deleteIncome = async (id) => {
     await IncomesFunctions.deleteIncome(id);
+    await fetchIncomes();
+  };
+
+  const editIncome = async (income, id) => {
+    await IncomesFunctions.editIncome(income, id);
   };
 
   return (
@@ -78,6 +83,7 @@ export const IncomesProvider = ({ children }) => {
         incomes,
         addIncome,
         deleteIncome,
+        editIncome,
       }}
     >
       {children}

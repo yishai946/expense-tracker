@@ -81,6 +81,29 @@ const IncomesFunctions = {
     }
   },
 
+  //   update income
+  editIncome: async (income, id) => {
+    try {
+      const response = await fetch(
+        `http://localhost:3000/api/incomes/update/${id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+          body: JSON.stringify(income),
+        }
+      );
+
+      IncomesFunctions.checkAuth(response);
+
+      return response.json();
+    } catch (error) {
+      console.log(error);
+    }
+  },
+
   checkAuth: (response) => {
     // check if token and expiry exist
     if (response.status === 401 || response.status === 403) {

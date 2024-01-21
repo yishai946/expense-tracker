@@ -1,7 +1,7 @@
 import React from "react";
 import Item from "./Item";
 
-function List({data, currentCategory}) {
+function List({ data, currentCategory, deleteItem, editItem }) {
   return (
     <div>
       <section className="expenses">
@@ -12,12 +12,10 @@ function List({data, currentCategory}) {
           )
           .map((item, i) => (
             <Item
-              name={item.name}
-              price={item.amount}
-              date={item.date}
-              time={item.time}
-              category={item.category}
               key={i}
+              item={item}
+              deleteItem={deleteItem}
+              editItem={editItem}
             />
           ))}
       </section>

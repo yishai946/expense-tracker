@@ -37,7 +37,7 @@ function Signin() {
       style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100vh" }}
     >
       <form className="form" onSubmit={handleSubmit}>
-        <p className="title">Signin </p>
+        <p className="title">Sign In </p>
         <p className="message">Sign in now and enjoy!</p>
 
         <input
@@ -54,9 +54,9 @@ function Signin() {
           className="input"
         />
 
-        <button className="submit">Signin</button>
+        <button className="submit">Sign In</button>
         <p className="signin">
-          Don't have an acount ? <Link to="/signup">Signup</Link>{" "}
+          Don't have an acount ? <Link to="/signup">Sign up</Link>{" "}
         </p>
       </form>
     </div>

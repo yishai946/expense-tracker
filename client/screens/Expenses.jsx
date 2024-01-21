@@ -1,12 +1,13 @@
-import "../styles/App.css";
-import { useExpensesContext } from "../context/ExpensesContext";
+import React from "react";
 import AddCategory from "../components/AddCategory";
-import DeleteCategory from "../components/DeleteCategory";
 import Categories from "../components/Categories";
-import NewItem from "../components/NewItem";
+import DeleteCategory from "../components/DeleteCategory";
 import List from "../components/List";
 import LogoutButton from "../components/LogoutButton";
 import Navigator from "../components/Navigator";
+import Form from "../components/Form";
+import { useExpensesContext } from "../context/ExpensesContext";
+import "../styles/App.css";
 
 export default function Expenses() {
   const {
@@ -15,11 +16,24 @@ export default function Expenses() {
     deleteExpenseCategory,
     addExpenseCategory,
     fetchExpenses,
+    deleteExpense,
     fetchCategoriesExpenses,
     categoriesExpenses,
     currentExpenseCategory,
     selectExpenseCategory,
+    editExpense,
   } = useExpensesContext();
+
+  const [edit, setEdit] = React.useState(false);
+  const [expenseToEdit, setExpenseToEdit] = React.useState({});
+  const cancel = () => {
+    setEdit(false);
+    setExpenseToEdit({});
+  };
+  const activateEdit = (item) => {
+    setEdit(true);
+    setExpenseToEdit(item);
+  };
 
   return (
     <>
@@ -43,12 +57,20 @@ export default function Expenses() {
             fetchCategories={fetchCategoriesExpenses}
           />
         </div>
-        <NewItem
-          add={addExpense}
+        <Form
+          add={edit ? null : addExpense}
+          edit={edit ? editExpense : null}
           fetch={fetchExpenses}
           categories={categoriesExpenses}
+          item={edit ? expenseToEdit : null}
+          cancel={edit ? cancel : null}
         />
-        <List data={expenses} currentCategory={currentExpenseCategory} />
+        <List
+          data={expenses}
+          currentCategory={currentExpenseCategory}
+          deleteItem={deleteExpense}
+          editItem={activateEdit}
+        />
       </div>
 
       {/* <section className="total" id="total">

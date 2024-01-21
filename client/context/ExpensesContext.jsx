@@ -61,6 +61,15 @@ export const ExpensesProvider = ({ children }) => {
     await ExpensesFunctions.addExpense(expense);
   };
 
+  const deleteExpense = async (expense) => {
+    await ExpensesFunctions.deleteExpense(expense);
+    await fetchExpenses();
+  }
+
+  const editExpense = async (expense, id) => {
+    await ExpensesFunctions.editExpense(expense, id);
+  }
+
   return (
     <ExpensesContext.Provider
       value={{
@@ -72,8 +81,10 @@ export const ExpensesProvider = ({ children }) => {
         currentExpenseCategory,
         selectExpenseCategory,
         expenses,
+        deleteExpense,
         fetchExpenses,
         addExpense,
+        editExpense
       }}
     >
       {children}

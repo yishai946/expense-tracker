@@ -1,23 +1,33 @@
 import "../styles/Expense.css";
 
-export default function Item({ name, price, date, time, category }) {
+export default function Item({
+  item,
+  deleteItem,
+  editItem,
+}) {
   return (
     <div className="card">
-      <p>{name}</p>
+      <p style={{ fontWeight: "bolder", marginBottom: 5 }}>{item.name}</p>
       <div className="date">
-        <p>
-          {date.replace(/-/g, "/")}
-          {"  "}      
-          {time.slice(0, 5)}
-        </p>
+        <p>{item.date.replace(/-/g, "/")}</p>
+        <p>{item.time.slice(0, 5)}</p>
       </div>
       <div className="details">
         <div className="name">
-          <p>{category}</p>
+          <p>{item.category}</p>
         </div>
         <div className="price">
-          <p>{price}₪</p>
+          <p>{item.amount}₪</p>
         </div>
+      </div>
+      <div className="buttons">
+        <button className="buttonText" onClick={() => deleteItem(item._id)}>
+          Delete
+        </button>
+        |
+        <button className="buttonText" onClick={() => editItem(item)}>
+          Edit
+        </button>
       </div>
     </div>
   );

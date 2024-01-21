@@ -1,12 +1,27 @@
 import React, { useState } from "react";
-import { useExpensesContext } from "../context/ExpensesContext";
 
-function NewItem({ categories, fetch, add }) {
+function Form({ categories, fetch, add, edit, item, cancel }) {
   const [name, setName] = useState("");
   const [amount, setAmount] = useState("");
   const [date, setDate] = useState("");
-
   const [choice, setChoice] = useState("");
+
+  React.useEffect(() => {
+    if (item) {
+      setName(item.name);
+      setAmount(item.amount);
+      setDate(`${item.date}T${item.time}`);
+      setChoice(item.category);
+    }
+  }, [item]);
+
+  const cancelEdit = () => {
+    setAmount("");
+    setName("");
+    setDate("");
+    setChoice("");
+    cancel();
+  };
 
   const handleSelection = (event) => {
     event.preventDefault();
@@ -36,19 +51,36 @@ function NewItem({ categories, fetch, add }) {
       minutes < 10 ? "0" + minutes : minutes
     }:${seconds < 10 ? "0" + seconds : seconds}`;
 
-    await add({
-      name,
-      amount,
-      date: formattedDate,
-      time: formattedTime,
-      category: choice,
-    });
+    if (add) {
+      await add({
+        name,
+        amount,
+        date: formattedDate,
+        time: formattedTime,
+        category: choice,
+      });
+    } else {
+      await edit(
+        {
+          name,
+          amount,
+          date: formattedDate,
+          time: formattedTime,
+          category: choice,
+        },
+        item._id
+      );
+    }
 
     await fetch();
     setName("");
     setAmount("");
-    setDate(""); // Clear the date after submitting the form
+    setDate("");
     setChoice("");
+
+    if (item) {
+      cancelEdit();
+    }
   };
 
   return (
@@ -98,11 +130,20 @@ function NewItem({ categories, fetch, add }) {
           autoComplete="off"
         />
         <button type="submit" className="button">
-          Add
+          {item ? "Edit" : "Add"}
         </button>
+        {cancel && (
+          <button
+            className="button"
+            onClick={cancelEdit}
+            style={{ marginTop: 10 }}
+          >
+            cancel
+          </button>
+        )}
       </form>
     </section>
   );
 }
 
-export default NewItem;
+export default Form;

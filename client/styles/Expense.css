@@ -9,13 +9,14 @@
 .details {
   display: flex;
   flex-direction: row;
-  gap: 50px;
-  justify-content: space-between; 
+  gap: 30px;
+  justify-content: center; 
   align-items: center;
 }
 
 .date {
   display: flex;
+  flex-direction: column;
   margin-bottom: 5px;
   justify-content: center;
 }
@@ -23,11 +24,30 @@
 .date p {
   font-size: 15px;
   font-style: italic;
-  font-weight: bolder;
 }
 
 p {
   font-family: "Courier New", Courier, monospace;
   font-size: 20px;
   margin: 0%;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.buttonText {
+  font-size: 12px;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font-weight: bold;
+  color: gray;
+
 }

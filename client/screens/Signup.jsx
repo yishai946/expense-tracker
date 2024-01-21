@@ -62,8 +62,8 @@ function Signup() {
   return (
     <div style={{display: "flex", alignItems: "center", justifyContent: "center", height: "100vh"}}>
       <form className="form" onSubmit={handleSubmit}>
-        <p className="title">Signup </p>
-        <p className="message">Signup now and get full access to our app. </p>
+        <p className="title">Sign Up </p>
+        <p className="message">Sign up now and get full access to our app. </p>
         <input
           required
           placeholder="Name"
@@ -109,9 +109,9 @@ function Signup() {
           className="input"
         />
   
-        <button className="submit">Submit</button>
+        <button className="submit">Sign Up</button>
         <p className="signin">
-          Already have an acount ? <Link to="/signin">Signin</Link>{" "}
+          Already have an acount ? <Link to="/signin">Sign in</Link>{" "}
         </p>
       </form>
     </div>
