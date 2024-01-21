@@ -46,6 +46,7 @@ class IncomesCollection {
     try {
       return await this.instance()
         .incomesCollection.find({ userId })
+        .sort({ date: -1, time: -1 })
         .toArray();
     } catch (err) {
       console.error(`Error getting all incomes: ${err}`);
@@ -105,6 +106,7 @@ class IncomesCollection {
           category,
           userId,
         })
+        .sort({ date: -1, time: -1 })
         .toArray();
     } catch (err) {
       console.error(`Error getting incomes by category: ${err}`);
