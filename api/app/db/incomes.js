@@ -27,9 +27,12 @@ class IncomesCollection {
   //   add new income
   static async create(name, amount, date, time, category, userId) {
     try {
+      amount = parseFloat(amount);
+      const fullDate = new Date(date);
       await this.instance().incomesCollection.insertOne({
         name,
         amount,
+        fullDate,
         date,
         time,
         category,
@@ -69,12 +72,15 @@ class IncomesCollection {
   //   update income
   static async update(id, name, amount, date, category) {
     try {
+      amount = parseFloat(amount);
+      const fullDate = new Date(date);
       await this.instance().incomesCollection.updateOne(
         { _id: new ObjectId(id) },
         {
           $set: {
             name,
             amount,
+            fullDate,
             date,
             category,
           },
@@ -111,6 +117,61 @@ class IncomesCollection {
     } catch (err) {
       console.error(`Error getting incomes by category: ${err}`);
       throw new Error(`Error getting incomes by category`);
+    }
+  }
+
+  static async totalIncomes(userId, date) {
+    try {
+      const total = await this.instance()
+        .incomesCollection.aggregate([
+          {
+            $match: {
+              userId: userId,
+              fullDate: { $lte: date },
+            },
+          },
+          {
+            $group: {
+              _id: null,
+              total: {
+                $sum: "$amount",
+              },
+            },
+          },
+        ])
+        .toArray();
+
+      return total[0]?.total;
+    } catch (err) {
+      console.error(`Error getting total incomes: ${err}`);
+      throw new Error(`Error getting total incomes`);
+    }
+  }
+
+  static async getTotalByCategories(userId) {
+    try {
+      const total = await this.instance()
+        .incomesCollection.aggregate([
+          {
+            $match: {
+              userId: userId,
+            },
+          },
+          {
+            $group: {
+              _id: "$category",
+              total: {
+                $sum: "$amount",
+              },
+            },
+          },
+        ])
+        .toArray();
+
+      return total;
+    } catch (err) {
+      console.error(`Error getting total incomes: ${err}`);
+      throw new Error(`Error getting total incomes`);
     }
   }
 }

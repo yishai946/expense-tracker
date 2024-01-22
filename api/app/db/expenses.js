@@ -1,5 +1,6 @@
 const { ObjectId } = require("mongodb");
 const MongoDB = require("./mongodb");
+const { use } = require("..");
 
 class ExpensesCollection {
   constructor() {
@@ -27,9 +28,12 @@ class ExpensesCollection {
   //   add new expense
   static async create(name, amount, date, time, category, userId) {
     try {
+      amount = parseFloat(amount);
+      const fullDate = new Date(date);
       await this.instance().expensesCollection.insertOne({
         name,
         amount,
+        fullDate,
         date,
         time,
         category,
@@ -46,7 +50,7 @@ class ExpensesCollection {
     try {
       return await this.instance()
         .expensesCollection.find({ userId })
-        .sort({ date: -1, time: -1 }) 
+        .sort({ date: -1, time: -1 })
         .toArray();
     } catch (err) {
       console.error(`Error getting all expenses: ${err}`);
@@ -69,12 +73,15 @@ class ExpensesCollection {
   //   update expense
   static async update(id, name, amount, date, category) {
     try {
+      amount = parseFloat(amount);
+      const fullDate = new Date(date);
       await this.instance().expensesCollection.updateOne(
         { _id: new ObjectId(id) },
         {
           $set: {
             name,
             amount,
+            fullDate,
             date,
             category,
           },
@@ -108,6 +115,61 @@ class ExpensesCollection {
         })
         .sort({ date: -1, time: -1 })
         .toArray();
+    } catch (err) {
+      console.error(`Error getting expenses by category: ${err}`);
+      throw new Error(`Error getting expenses by category`);
+    }
+  }
+
+  static async totalExpenses(userId, date) {
+    try {
+      const total = await this.instance()
+        .expensesCollection.aggregate([
+          {
+            $match: {
+              userId: userId,
+              fullDate: { $lte: date },
+            },
+          },
+          {
+            $group: {
+              _id: null,
+              total: {
+                $sum: "$amount",
+              },
+            },
+          },
+        ])
+        .toArray();
+
+      return total[0]?.total;
+    } catch (err) {
+      console.error(`Error getting total expenses: ${err}`);
+      throw new Error(`Error getting total expenses`);
+    }
+  }
+
+  static async getTotalByCategories(userId) {
+    try {
+      const totals = await this.instance()
+        .expensesCollection.aggregate([
+          {
+            $match: {
+              userId: "65a57e1ed7b3b32a038a322c",
+            },
+          },
+          {
+            $group: {
+              _id: "$category",
+              total: {
+                $sum: "$amount",
+              },
+            },
+          },
+        ])
+        .toArray();
+
+      return totals;
     } catch (err) {
       console.error(`Error getting expenses by category: ${err}`);
       throw new Error(`Error getting expenses by category`);
