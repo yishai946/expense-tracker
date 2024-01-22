@@ -39,7 +39,7 @@ export default function Incomes() {
     <>
       <Navigator />
       <LogoutButton />
-      <h1>Income Tracker</h1>
+      <h1>Incomes</h1>
       <Categories
         categories={categoriesIncomes}
         selectCategory={selectIncomeCategory}

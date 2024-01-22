@@ -1,6 +1,8 @@
 import React, { useState } from "react";
+import { useHomeContext } from "../context/HomeContext";
 
 function Form({ categories, fetch, add, edit, item, cancel }) {
+  const { fetchBalance } = useHomeContext();
   const [name, setName] = useState("");
   const [amount, setAmount] = useState("");
   const [date, setDate] = useState("");
@@ -73,6 +75,7 @@ function Form({ categories, fetch, add, edit, item, cancel }) {
     }
 
     await fetch();
+    await fetchBalance();
     setName("");
     setAmount("");
     setDate("");
@@ -81,6 +84,7 @@ function Form({ categories, fetch, add, edit, item, cancel }) {
     if (item) {
       cancelEdit();
     }
+
   };
 
   return (

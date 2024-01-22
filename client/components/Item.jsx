@@ -1,10 +1,14 @@
 import "../styles/Expense.css";
+import { useHomeContext } from "../context/HomeContext";
 
-export default function Item({
-  item,
-  deleteItem,
-  editItem,
-}) {
+export default function Item({ item, deleteItem, editItem }) {
+  const { fetchBalance } = useHomeContext();
+
+  const handleDelete = async () => {
+    await deleteItem(item._id);
+    await fetchBalance();
+  };
+
   return (
     <div className="card">
       <p style={{ fontWeight: "bolder", marginBottom: 5 }}>{item.name}</p>
@@ -21,7 +25,7 @@ export default function Item({
         </div>
       </div>
       <div className="buttons">
-        <button className="buttonText" onClick={() => deleteItem(item._id)}>
+        <button className="buttonText" onClick={handleDelete}>
           Delete
         </button>
         |

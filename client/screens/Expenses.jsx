@@ -34,12 +34,13 @@ export default function Expenses() {
     setEdit(true);
     setExpenseToEdit(item);
   };
+  
 
   return (
     <>
       <Navigator />
       <LogoutButton />
-      <h1>Expenses Tracker</h1>
+      <h1>Expenses</h1>
       <Categories
         categories={categoriesExpenses}
         selectCategory={selectExpenseCategory}
