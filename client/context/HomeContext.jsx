@@ -8,6 +8,7 @@ export function HomeProvider({ children }) {
   const [balances, setBalances] = useState([]);
   const [expenses, setExpenses] = useState([]);
   const [incomes, setIncomes] = useState([]);
+  const [expensesByCategory, setExpensesByCategory] = useState([]);
 
   useEffect(() => {
     refresh();
@@ -20,6 +21,7 @@ export function HomeProvider({ children }) {
       promises.push(fetchBalance());
       promises.push(fetchExpenses());
       promises.push(fetchIncomes());
+      promises.push(fetchExpensesByCategory());
 
       Promise.all(promises).then((result) => {
         const balancesArr = calculateBalances(
@@ -29,6 +31,7 @@ export function HomeProvider({ children }) {
         setBalance(result[0].balance);
         setExpenses(result[1].expensesArr);
         setIncomes(result[2].incomesArr);
+        setExpensesByCategory(result[3].expenses);
         setBalances(balancesArr);
       });
     }
@@ -37,6 +40,10 @@ export function HomeProvider({ children }) {
   const fetchBalance = async (date) => {
     if (!date) date = getFormattedDate();
     return HomeFunctions.getBalance(date);
+  };
+
+  const fetchExpensesByCategory = async () => {
+    return HomeFunctions.getExpensesByCategory();
   };
 
   const calculateBalances = (expenses, incomes) => {
@@ -79,7 +86,14 @@ export function HomeProvider({ children }) {
 
   return (
     <HomeContext.Provider
-      value={{ balance, refresh, balances, expenses, incomes }}
+      value={{
+        balance,
+        refresh,
+        balances,
+        expenses,
+        incomes,
+        expensesByCategory,
+      }}
     >
       {children}
     </HomeContext.Provider>

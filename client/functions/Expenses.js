@@ -45,7 +45,6 @@ const ExpensesFunctions = {
 
   addExpense: async (expense) => {
     try {
-      console.log(JSON.stringify(expense));
       const response = await fetch("http://localhost:3000/api/expenses/add", {
         method: "POST",
         headers: {

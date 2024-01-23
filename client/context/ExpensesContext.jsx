@@ -39,7 +39,7 @@ export const ExpensesProvider = ({ children }) => {
 
   const fetchExpenseByCategory = async () => {
     const response = await ExpensesFunctions.getExpensesByCategory(
-      currentCategory
+      currentExpenseCategory
     );
     setExpenses(response.expenses);
   };

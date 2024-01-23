@@ -39,7 +39,7 @@ export const IncomesProvider = ({ children }) => {
 
   const fetchIncomeByCategory = async () => {
     const response = await IncomesFunctions.getIncomesByCategory(
-      currentCategory
+      currentIncomeCategory
     );
     setIncomes(response.incomes);
   };

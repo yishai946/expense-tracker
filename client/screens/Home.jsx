@@ -3,6 +3,7 @@ import LogoutButton from "../components/LogoutButton";
 import Navigator from "../components/Navigator";
 import Balance from "../components/Balance";
 import LineChart from "../components/LineChart";
+import PiChart from "../components/PiChart";
 import { useHomeContext } from "../context/HomeContext";
 import "../styles/Home.css";
 
@@ -11,13 +12,12 @@ function Home() {
 
   return (
     <div>
-      <h1>Finance Tracker</h1>
+      {/* <h1>Finance Tracker</h1> */}
       <LogoutButton />
       <Navigator />
       <Balance />
-      {balances && expenses && incomes && (
-        <LineChart balances={balances} expenses={expenses} incomes={incomes} />
-      )}
+      <PiChart />
+      <LineChart />
     </div>
   );
 }

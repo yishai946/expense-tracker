@@ -11,6 +11,7 @@ import {
   Legend,
 } from "chart.js";
 import { Line } from "react-chartjs-2";
+import { useHomeContext } from "../context/HomeContext";
 
 ChartJS.register(
   CategoryScale,
@@ -35,7 +36,8 @@ export const options = {
   },
 };
 
-const LineChart = ({ balances, incomes, expenses }) => {
+const LineChart = () => {
+  const { balances, incomes, expenses } = useHomeContext();
   const labels = balances.map((entry) => entry.date);
 
   const data = {
@@ -63,9 +65,13 @@ const LineChart = ({ balances, incomes, expenses }) => {
   };
 
   return (
-    <div className="chartContainer">
-      <Line options={options} data={data} />
-    </div>
+    balances &&
+    expenses &&
+    incomes && (
+      <div className="chartContainer">
+        <Line options={options} data={data} />
+      </div>
+    )
   );
 };
 

@@ -257,8 +257,6 @@ label {
   background: #fff;
 }
 
-
-
 /* logout button */
 .Btn {
   --black: #000000;
@@ -280,7 +278,7 @@ label {
   border-radius: 5px;
   cursor: pointer;
   overflow: hidden;
-  transition-duration: .3s;
+  transition-duration: 0.3s;
   box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.199);
   background-color: var(--af-white);
 }
@@ -288,7 +286,7 @@ label {
 /* plus sign */
 .sign {
   width: 100%;
-  transition-duration: .3s;
+  transition-duration: 0.3s;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -310,32 +308,31 @@ label {
   color: royalblue;
   font-size: 1.2em;
   font-weight: 600;
-  transition-duration: .3s;
+  transition-duration: 0.3s;
 }
 /* hover effect on button width */
 .Btn:hover {
   width: 150px;
   border-radius: 5px;
-  transition-duration: .3s;
+  transition-duration: 0.3s;
 }
 
 .Btn:hover .sign {
   width: 30%;
-  transition-duration: .3s;
+  transition-duration: 0.3s;
   padding-left: 20px;
 }
 /* hover effect button's text */
 .Btn:hover .text {
   opacity: 1;
   width: 70%;
-  transition-duration: .3s;
+  transition-duration: 0.3s;
   padding-right: 10px;
 }
 /* button click effect*/
 .Btn:active {
-  transform: translate(2px ,2px);
+  transform: translate(2px, 2px);
 }
-
 
 /* navigation bar */
 .nav-container {
@@ -365,4 +362,11 @@ label {
   transform: scale(1.1);
 }
 
-
+.colorPick {
+  appearance: none;
+  width: 25px;
+  height: 25px;
+  border-radius: "50%";
+  border: none;
+  padding: 0;
+}

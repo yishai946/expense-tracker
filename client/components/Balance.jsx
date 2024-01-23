@@ -7,12 +7,12 @@ function Balance() {
   return (
     <div className="balance">
       <h1
-        style={{
-          color: balance < 0 ? "red" : "green",
-          letterSpacing: 2,
-        }}
+        // style={{
+        //   color: balance < 0 ? "red" : "green",
+        //   letterSpacing: 2,
+        // }}
       >
-        {balance}₪
+        Balance: {balance}₪
       </h1>
     </div>
   );
