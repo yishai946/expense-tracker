@@ -10,39 +10,61 @@ export function HomeProvider({ children }) {
   const [incomes, setIncomes] = useState([]);
 
   useEffect(() => {
+    refresh();
+  }, []);
+
+  const refresh = () => {
     const token = localStorage.getItem("token");
     if (token) {
-      (async () => {
-        await fetchBalance();
-        await fetchBalances();
-        await fetchExpenses();
-        await fetchIncomes();
-      })();
+      const promises = [];
+      promises.push(fetchBalance());
+      promises.push(fetchExpenses());
+      promises.push(fetchIncomes());
+
+      Promise.all(promises).then((result) => {
+        const balancesArr = calculateBalances(
+          result[1].expensesArr,
+          result[2].incomesArr
+        );
+        setBalance(result[0].balance);
+        setExpenses(result[1].expensesArr);
+        setIncomes(result[2].incomesArr);
+        setBalances(balancesArr);
+      });
     }
-  }, []);
+  };
 
   const fetchBalance = async (date) => {
     if (!date) date = getFormattedDate();
-    const response = await HomeFunctions.getBalance(date);
-    setBalance(response.balance);
+    return HomeFunctions.getBalance(date);
   };
 
-  const fetchBalances = async (date) => {
-    if (!date) date = getFormattedDate();
-    const response = await HomeFunctions.getBalances(date);
-    setBalances(response.balances);
+  const calculateBalances = (expenses, incomes) => {
+    if (expenses.length !== incomes.length) {
+      console.error(
+        "Error: Expenses and Incomes arrays must have the same length."
+      );
+      return;
+    }
+
+    const balancesArray = [];
+    for (let i = 0; i < expenses.length; i++) {
+      balancesArray.push({
+        total: incomes[i].total - expenses[i].total || 0,
+        date: expenses[i].date,
+      });
+    }
+    return balancesArray;
   };
 
   const fetchExpenses = async (date) => {
     if (!date) date = getFormattedDate();
-    const response = await HomeFunctions.getExpenses(date);
-    setExpenses(response.expenses);
+    return HomeFunctions.getExpenses(date);
   };
 
   const fetchIncomes = async (date) => {
     if (!date) date = getFormattedDate();
-    const response = await HomeFunctions.getIncomes(date);
-    setIncomes(response.incomes);
+    return HomeFunctions.getIncomes(date);
   };
 
   function getFormattedDate() {
@@ -57,7 +79,7 @@ export function HomeProvider({ children }) {
 
   return (
     <HomeContext.Provider
-      value={{ balance, fetchBalance, balances, expenses, incomes }}
+      value={{ balance, refresh, balances, expenses, incomes }}
     >
       {children}
     </HomeContext.Provider>

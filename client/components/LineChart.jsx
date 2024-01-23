@@ -43,19 +43,19 @@ const LineChart = ({ balances, incomes, expenses }) => {
     datasets: [
       {
         label: "Balance",
-        data: balances.map((entry) => entry.balances),
+        data: balances.map((entry) => entry.total),
         borderColor: "rgb(53, 162, 235)",
         backgroundColor: "rgba(53, 162, 235, 0.5)",
       },
       {
         label: "Expenses",
-        data: expenses.map((entry) => entry.expenses),
+        data: expenses.map((entry) => entry.total),
         borderColor: "rgb(255, 99, 132)",
         backgroundColor: "rgba(255, 99, 132, 0.5)",
       },
       {
         label: "Incomes",
-        data: incomes.map((entry) => entry.incomes),
+        data: incomes.map((entry) => entry.total),
         borderColor: "rgb(75, 192, 192)",
         backgroundColor: "rgba(75, 192, 192, 0.5)",
       },

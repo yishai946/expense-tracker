@@ -18,7 +18,10 @@ router.get('/expensesByCategories', validateToken, services.expensesTotalByCateg
 // get incomes by categories
 router.get('/incomesByCategories', validateToken, services.incomesTotalByCategories);
 
-// get balances last month
-router.get("/balancesLastMonth/:date", validateToken, services.getBalancesLastMonth);
+// get expenses last month
+router.get("/expensesLastMonth/:date", validateToken, services.getExpensesLastMonth);
+
+// get incomes last month
+router.get("/incomesLastMonth/:date", validateToken, services.getIncomesLastMonth);
 
 module.exports = router;

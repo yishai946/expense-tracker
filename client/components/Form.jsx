@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useHomeContext } from "../context/HomeContext";
 
 function Form({ categories, fetch, add, edit, item, cancel }) {
-  const { fetchBalance } = useHomeContext();
+  const { refresh } = useHomeContext();
   const [name, setName] = useState("");
   const [amount, setAmount] = useState("");
   const [date, setDate] = useState("");
@@ -75,7 +75,7 @@ function Form({ categories, fetch, add, edit, item, cancel }) {
     }
 
     await fetch();
-    await fetchBalance();
+    await refresh();
     setName("");
     setAmount("");
     setDate("");

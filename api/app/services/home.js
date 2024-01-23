@@ -9,10 +9,13 @@ module.exports = {
       const { date } = req.params;
       const totalExpenses = await ExpensesCollection.totalExpenses(
         userId,
-        date
+        new Date(date)
       );
-      const totalIncomes = await IncomeCollection.totalIncomes(userId);
-      const balance = totalIncomes - totalExpenses;
+      const totalIncomes = await IncomeCollection.totalIncomes(
+        userId,
+        new Date(date)
+      );
+      const balance = totalIncomes.total - totalExpenses.total;
       res.json({ balance });
     } catch (err) {
       console.error(`Error getting balance: ${err}`);
@@ -24,9 +27,10 @@ module.exports = {
     try {
       const { userId } = req.userId;
       const { date } = req.params;
+      const newDate = new Date(date);
       const totalExpenses = await ExpensesCollection.totalExpenses(
         userId,
-        date
+        newDate
       );
       res.json({ totalExpenses });
     } catch (err) {
@@ -39,7 +43,8 @@ module.exports = {
     try {
       const { userId } = req.userId;
       const { date } = req.params;
-      const totalIncomes = await IncomeCollection.totalIncomes(userId, date);
+      const newDate = new Date(date);
+      const totalIncomes = await IncomeCollection.totalIncomes(userId, newDate);
       res.json({ totalIncomes });
     } catch (err) {
       console.error(`Error getting total incomes: ${err}`);
@@ -71,35 +76,52 @@ module.exports = {
     }
   },
 
-  getBalancesLastMonth: async (req, res) => {
+  // get expenses last month
+  getExpensesLastMonth: async (req, res) => {
     try {
       const { userId } = req.userId;
       const { date } = req.params;
 
-      // get array of balances for last 30 days
-      const balances = [];
+      // get array of expenses for last 30 days
+      const expenses = [];
 
       for (let i = 30; i > 0; i--) {
         const newDate = new Date(date);
         newDate.setDate(newDate.getDate() - i);
 
-        const totalExpenses = await ExpensesCollection.totalExpenses(
-          userId,
-          newDate
-        );
-
-        const totalIncomes = await IncomeCollection.totalIncomes(
-          userId,
-          newDate
-        );
-
-        const balance = totalIncomes - totalExpenses;
-        balances.push({balance, date: newDate});
+        expenses.push(ExpensesCollection.totalExpenses(userId, newDate));
       }
 
-      res.json({ balances });
+      const expensesArr = await Promise.all(expenses);
+
+      res.json({ expensesArr });
     } catch (err) {
-      console.error(`Error getting balance: ${err}`);
+      console.error(`Error getting expenses: ${err}`);
+      res.status(500).json({ error: err.message });
+    }
+  },
+
+  // get incomes last month
+  getIncomesLastMonth: async (req, res) => {
+    try {
+      const { userId } = req.userId;
+      const { date } = req.params;
+
+      // get array of incomes for last 30 days
+      const incomes = [];
+
+      for (let i = 30; i > 0; i--) {
+        const newDate = new Date(date);
+        newDate.setDate(newDate.getDate() - i);
+
+        incomes.push(IncomeCollection.totalIncomes(userId, newDate));
+      }
+
+      const incomesArr = await Promise.all(incomes);
+
+      res.json({ incomesArr });
+    } catch (err) {
+      console.error(`Error getting incomes: ${err}`);
       res.status(500).json({ error: err.message });
     }
   },

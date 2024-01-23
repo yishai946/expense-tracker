@@ -2,11 +2,11 @@ import "../styles/Expense.css";
 import { useHomeContext } from "../context/HomeContext";
 
 export default function Item({ item, deleteItem, editItem }) {
-  const { fetchBalance } = useHomeContext();
+  const { refresh } = useHomeContext();
 
   const handleDelete = async () => {
     await deleteItem(item._id);
-    await fetchBalance();
+    await refresh();
   };
 
   return (

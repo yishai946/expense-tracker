@@ -141,7 +141,7 @@ class IncomesCollection {
         ])
         .toArray();
 
-      return total[0]?.total;
+        return { total: total[0]?.total || 0, date: date.getDate() };
     } catch (err) {
       console.error(`Error getting total incomes: ${err}`);
       throw new Error(`Error getting total incomes`);
