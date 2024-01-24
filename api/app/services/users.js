@@ -39,13 +39,13 @@ module.exports = {
       const user = await UsersCollection.findByUsername(username);
 
       if (!user) {
-        res.status(400).json({ error: `username not found` });
+        return res.status(400).json({ error: `username not found` });
       }
 
       // Compare password
       const isMatch = await bcrypt.compare(password, user.password);
       if (!isMatch) {
-        res.status(400).json({ error: "Invalid password" });
+        return res.status(400).json({ error: "Invalid password" });
       }
 
       const token = jwt.sign({ userId: user._id }, process.env.JWT_KEY, {
@@ -54,7 +54,7 @@ module.exports = {
 
       const expiry = new Date(Date.now() + 12 * 60 * 60 * 1000);
 
-      res.status(200).json({ token, expiry, userId: user._id });
+      return res.status(200).json({ token, expiry, userId: user._id });
     } catch (err) {
       console.error(`Error authenticating user: ${err}`);
       res.status(500).json({ error: "Internal Server Error" });

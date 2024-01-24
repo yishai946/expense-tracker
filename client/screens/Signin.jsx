@@ -22,6 +22,11 @@ function Signin() {
         }),
       });
 
+      if(response.status === 400) {
+        alert("Invalid username or password");
+        return;
+      }
+
       const data = await response.json();
 
       if (data.token) {

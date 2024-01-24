@@ -6,13 +6,13 @@ Project Description
 
 ### Todo
 
-- [ ] fix incorrect login  
 
 ### In Progress
 
 
 ### Done ✓
 
+- [x] fix incorrect login  
 - [x] income vs expenses  
 - [x] balance  
 - [x] graph for balance over time  
