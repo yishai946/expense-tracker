@@ -98,6 +98,74 @@ const HomeFunctions = {
     }
   },
 
+  getExpensesTotal: async (date) => {
+    try {
+      const response = await fetch(
+        `http://localhost:3000/api/home/expenses/${date}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+
+      HomeFunctions.checkAuth(response);
+      const body = await response.json();
+      if (response.status !== 200) throw Error(body.message);
+      return body;
+    } catch (err) {
+      console.log(err);
+    }
+  },
+
+  getIncomesTotal: async (date) => {
+    try {
+      const response = await fetch(
+        `http://localhost:3000/api/home/incomes/${date}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+
+      HomeFunctions.checkAuth(response);
+
+      const body = await response.json();
+      if (response.status !== 200) throw Error(body.message);
+      return body;
+    } catch (err) {
+      console.log(err);
+    }
+  },
+
+  getExpensesPercentage: async (dateStart, dateEnd) => {
+    try {
+      const response = await fetch(
+        `http://localhost:3000/api/home/expensesPercentage?dateStart=${dateStart}&dateEnd=${dateEnd}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+
+      HomeFunctions.checkAuth(response);
+
+      const body = await response.json();
+      if (response.status !== 200) throw Error(body.message);
+      return body;
+    } catch (err) {
+      console.log(err);
+    }
+  },
+
   checkAuth: (response) => {
     // check if token and expiry exist
     if (response.status === 401 || response.status === 403) {

@@ -16,7 +16,7 @@ function DeleteCategory({ categories, fetchCategories, deleteCategory }) {
     setChoice(selection);
   };
 
-  return categories ? (
+  return (
     <section className="deleteCategory">
       <form onSubmit={handleSubmit}>
         <select
@@ -29,11 +29,12 @@ function DeleteCategory({ categories, fetchCategories, deleteCategory }) {
           <option value="" disabled>
             Select a category
           </option>
-          {categories.map((category, i) => (
-            <option value={category} key={i}>
-              {category}
-            </option>
-          ))}
+          {categories &&
+            categories.map((category, i) => (
+              <option value={category} key={i}>
+                {category}
+              </option>
+            ))}
         </select>
 
         <button type="submit" className="button">
@@ -41,8 +42,6 @@ function DeleteCategory({ categories, fetchCategories, deleteCategory }) {
         </button>
       </form>
     </section>
-  ) : (
-    <div>Loading...</div>
   );
 }
 

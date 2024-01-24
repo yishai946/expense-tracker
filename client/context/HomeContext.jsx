@@ -8,6 +8,9 @@ export function HomeProvider({ children }) {
   const [balances, setBalances] = useState([]);
   const [expenses, setExpenses] = useState([]);
   const [incomes, setIncomes] = useState([]);
+  const [expensesTotal, setExpensesTotal] = useState(0);
+  const [incomesTotal, setIncomesTotal] = useState(0);
+  const [percentage, setPercentage] = useState(0);
   const [expensesByCategory, setExpensesByCategory] = useState([]);
 
   useEffect(() => {
@@ -22,6 +25,9 @@ export function HomeProvider({ children }) {
       promises.push(fetchExpenses());
       promises.push(fetchIncomes());
       promises.push(fetchExpensesByCategory());
+      promises.push(fetchExpensesTotal());
+      promises.push(fetchIncomesTotal());
+      promises.push(fetchExpensesPercentage());
 
       Promise.all(promises).then((result) => {
         const balancesArr = calculateBalances(
@@ -32,9 +38,18 @@ export function HomeProvider({ children }) {
         setExpenses(result[1].expensesArr);
         setIncomes(result[2].incomesArr);
         setExpensesByCategory(result[3].expenses);
+        setExpensesTotal(result[4].totalExpenses.total);
+        setIncomesTotal(result[5].totalIncomes.total);
+        setPercentage(result[6].percentage);
         setBalances(balancesArr);
       });
     }
+  };
+
+  const fetchExpensesPercentage = async (dateStart, dateEnd) => {
+    if (!dateEnd) dateEnd = getFormattedDate();
+    if (!dateStart) dateStart = getFormattedDate(30);
+    return HomeFunctions.getExpensesPercentage(dateStart, dateEnd);
   };
 
   const fetchBalance = async (date) => {
@@ -55,12 +70,14 @@ export function HomeProvider({ children }) {
     }
 
     const balancesArray = [];
+
     for (let i = 0; i < expenses.length; i++) {
       balancesArray.push({
         total: incomes[i].total - expenses[i].total || 0,
         date: expenses[i].date,
       });
     }
+
     return balancesArray;
   };
 
@@ -74,8 +91,19 @@ export function HomeProvider({ children }) {
     return HomeFunctions.getIncomes(date);
   };
 
-  function getFormattedDate() {
+  const fetchExpensesTotal = async (date) => {
+    if (!date) date = getFormattedDate();
+    return HomeFunctions.getExpensesTotal(date);
+  };
+
+  const fetchIncomesTotal = async (date) => {
+    if (!date) date = getFormattedDate();
+    return HomeFunctions.getIncomesTotal(date);
+  };
+
+  function getFormattedDate(days = 0) {
     const today = new Date();
+    today.setDate(today.getDate() - days);
     const year = today.getFullYear();
     const month = String(today.getMonth() + 1).padStart(2, "0");
     const day = String(today.getDate()).padStart(2, "0");
@@ -93,6 +121,9 @@ export function HomeProvider({ children }) {
         expenses,
         incomes,
         expensesByCategory,
+        expensesTotal,
+        incomesTotal,
+        percentage
       }}
     >
       {children}

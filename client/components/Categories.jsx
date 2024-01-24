@@ -11,7 +11,7 @@ function Categories({ categories, currentCategory, selectCategory }) {
       >
         All
       </button>
-      {categories.map((category, i) => (
+      {categories && categories.map((category, i) => (
         <button
           key={i}
           name={category}

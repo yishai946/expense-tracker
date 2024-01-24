@@ -1,6 +1,7 @@
 const { ObjectId } = require("mongodb");
 const MongoDB = require("./mongodb");
 const { use } = require("..");
+const e = require("express");
 
 class ExpensesCollection {
   constructor() {
@@ -142,7 +143,7 @@ class ExpensesCollection {
         ])
         .toArray();
 
-        return {total: total[0]?.total || 0, date: date.getDate()}
+      return { total: total[0]?.total || 0, date: date.getDate() };
     } catch (err) {
       console.error(`Error getting total expenses: ${err}`);
       throw new Error(`Error getting total expenses`);
@@ -155,7 +156,7 @@ class ExpensesCollection {
         .expensesCollection.aggregate([
           {
             $match: {
-              userId: "65a57e1ed7b3b32a038a322c",
+              userId: userId,
             },
           },
           {
@@ -169,10 +170,72 @@ class ExpensesCollection {
         ])
         .toArray();
 
+      if (totals.length == 0) {
+        return [{ _id: "No expenses", total: 1 }];
+      }
+
       return totals;
     } catch (err) {
       console.error(`Error getting expenses by category: ${err}`);
       throw new Error(`Error getting expenses by category`);
+    }
+  }
+
+  static async getExpensesPercentage(userId, startDate, endDate, amount) {
+    try {
+      const amounts = await this.instance()
+        .expensesCollection.aggregate([
+          {
+            $match: {
+              fullDate: {
+                $gt: startDate,
+                $lt: endDate,
+              },
+              userId: {
+                $ne: userId,
+              },
+            },
+          },
+          {
+            $group: {
+              _id: "$userId",
+              total: {
+                $sum: "$amount",
+              },
+            },
+          },
+          {
+            $facet: {
+              bellow: [
+                {
+                  $match: {
+                    total: {
+                      $lt: parseFloat(amount),
+                    },
+                  },
+                },
+              ],
+              above: [
+                {
+                  $match: {
+                    total: {
+                      $gte: parseFloat(amount),
+                    },
+                  },
+                },
+              ],
+            },
+          },
+        ])
+        .toArray();
+
+      return {
+        bellow: amounts[0].bellow.length,
+        above: amounts[0].above.length,
+      };
+    } catch (err) {
+      console.error(`Error getting expenses percentage: ${err}`);
+      throw new Error(`Error getting expenses percentage`);
     }
   }
 }

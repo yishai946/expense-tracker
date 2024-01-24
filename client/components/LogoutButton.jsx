@@ -5,6 +5,10 @@ function LogoutButton() {
     <button className="Btn" onClick={() => {
         localStorage.removeItem("token");
         localStorage.removeItem("expiry");
+        localStorage.removeItem("username");
+        localStorage.removeItem("userData")
+        localStorage.removeItem("userId");
+        localStorage.removeItem("data")
         window.location.href = "/signin";
     }}>
       <div className="sign">

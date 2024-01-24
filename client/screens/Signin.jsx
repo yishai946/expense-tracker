@@ -1,8 +1,11 @@
 import "../styles/Login.css";
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 function Signin() {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -14,8 +17,8 @@ function Signin() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          username: e.target[0].value,
-          password: e.target[1].value,
+          username,
+          password,
         }),
       });
 
@@ -24,6 +27,8 @@ function Signin() {
       if (data.token) {
         localStorage.setItem("token", data.token);
         localStorage.setItem("expiry", data.expiry);
+        localStorage.setItem("userId", data.userId);
+
         // redirect to home page
         window.location.href = "/";
       }
@@ -34,7 +39,12 @@ function Signin() {
 
   return (
     <div
-      style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100vh" }}
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        height: "100vh",
+      }}
     >
       <form className="form" onSubmit={handleSubmit}>
         <p className="title">Sign In </p>
@@ -44,6 +54,8 @@ function Signin() {
           required=""
           placeholder="Username"
           type="text"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
           className="input"
         />
 
@@ -51,6 +63,8 @@ function Signin() {
           required=""
           placeholder="Password"
           type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
           className="input"
         />
 

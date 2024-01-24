@@ -24,4 +24,7 @@ router.get("/expensesLastMonth/:date", validateToken, services.getExpensesLastMo
 // get incomes last month
 router.get("/incomesLastMonth/:date", validateToken, services.getIncomesLastMonth);
 
+// get expenses percentage
+router.get("/expensesPercentage", validateToken, services.getExpensesPercentage);
+
 module.exports = router;

@@ -118,7 +118,7 @@ function Form({ categories, fetch, add, edit, item, cancel }) {
           <option value="" disabled>
             Select a category
           </option>
-          {categories.map((category, i) => (
+          {categories && categories.map((category, i) => (
             <option value={category} key={i}>
               {category}
             </option>

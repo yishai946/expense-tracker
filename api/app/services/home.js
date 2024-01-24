@@ -125,4 +125,34 @@ module.exports = {
       res.status(500).json({ error: err.message });
     }
   },
+
+  // get expenses percentage
+  getExpensesPercentage: async (req, res) => {
+    try {
+      const { userId } = req.userId;
+      const { dateStart, dateEnd } = req.query;
+
+      const newDateStart = new Date(dateStart);
+      const newDateEnd = new Date(dateEnd);
+
+      // get the user expenses
+      const amount = (
+        await ExpensesCollection.totalExpenses(userId, newDateEnd)
+      ).total;
+
+      const { above, bellow } = await ExpensesCollection.getExpensesPercentage(
+        userId,
+        newDateStart,
+        newDateEnd,
+        amount
+      );
+
+      const percentage = (bellow / (above + bellow + 1)) * 100;
+
+      res.json({ percentage });
+    } catch (err) {
+      console.error(`Error getting expenses percentage: ${err}`);
+      res.status(500).json({ error: err.message });
+    }
+  },
 };

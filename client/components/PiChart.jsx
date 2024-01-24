@@ -21,6 +21,21 @@ export default function PiChart() {
   // Use useMemo to generate colors once and memoize the result
   const colors = useMemo(() => generateRandomColors(expensesByCategory.length), [expensesByCategory]);
 
+  const options = {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: "bottom",
+      },
+      title: {
+        display: true,
+        text: "Expenses by categories",
+        position: "top",
+      },
+    },
+  };
+
+
   const data = {
     labels: expensesByCategory.map((entry) => entry._id),
     datasets: [
@@ -37,7 +52,7 @@ export default function PiChart() {
   return (
     expensesByCategory && (
       <div className="piContainer">
-        <Doughnut data={data} />
+        <Doughnut data={data} options={options} />
       </div>
     )
   );

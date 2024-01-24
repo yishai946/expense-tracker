@@ -6,16 +6,15 @@ Project Description
 
 ### Todo
 
-- [ ] budgets?  
-- [ ] categories breakdown (pi chart?)  
-- [ ] graph for balance over time  
-- [ ] balance  
-- [ ] income vs expenses  
-- [ ] last transactions  
+- [ ] fix incorrect login  
 
 ### In Progress
 
 
 ### Done ✓
 
+- [x] income vs expenses  
+- [x] balance  
+- [x] graph for balance over time  
+- [x] categories breakdown (pi chart?)  
 

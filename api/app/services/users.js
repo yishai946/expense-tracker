@@ -54,7 +54,7 @@ module.exports = {
 
       const expiry = new Date(Date.now() + 12 * 60 * 60 * 1000);
 
-      res.status(200).json({ token, expiry });
+      res.status(200).json({ token, expiry, userId: user._id });
     } catch (err) {
       console.error(`Error authenticating user: ${err}`);
       res.status(500).json({ error: "Internal Server Error" });
@@ -115,7 +115,7 @@ module.exports = {
 
       const user = await UsersCollection.findById(userId);
 
-      res.status(200).json({ categories: user.categories });
+      res.status(200).json({ categories: user.categories || [] });
     } catch (err) {
       console.error(`Error getting categories: ${err}`);
       res.status(500).json({ error: "Internal Server Error" });

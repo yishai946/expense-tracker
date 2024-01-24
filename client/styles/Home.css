@@ -1,25 +1,59 @@
 body {
   overflow-y: auto;
+  margin-top: 20px;
 }
 
-.balance {
+.data {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.headers {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.balance,
+.income,
+.expense {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 20px;
-  width: 80vw;
-  /* background-color: white; */
-}
-
-.balance h1 {
-  background-color: royalblue;
-  border-radius: 20px;
   color: #fff;
-  padding: 15px;
+  border-radius: 20px;
+  padding: 15px 40px 15px 40px;
+  margin-bottom: 20px;
   text-align: center;
   font-size: 24px;
+  font-family: sans-serif;
   font-weight: bold;
   box-shadow: 5px 5px 17px #c8c8c8, -5px -5px 17px #ffffff;
+  width: calc(20vw - 40px);
+  height: 5vh;
+}
+
+.balance {
+  background-color: rgba(53, 162, 235, 0.8);
+  border: 2px solid rgb(53, 162, 235);
+}
+
+.income {
+  background-color: rgba(75, 192, 192, 0.8);
+  border: 2px solid rgb(75, 192, 192);
+}
+
+.expense {
+  background-color: rgb(255, 99, 132, 0.8);
+  border: 2px solid rgb(255, 99, 132);
+}
+
+.headers label {
+  font-size: 18px;
+  font-family: sans-serif;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: black;
 }
 
 .chartContainer {
@@ -30,18 +64,13 @@ body {
   height: 80vh;
   padding: 20px;
   margin: 20px;
-  border: 1px solid black;
 }
 
 .piContainer {
   display: flex;
-  border: 1px solid black;
   justify-content: center;
   align-items: center;
   width: calc(40vw - 40px);
   height: 70vh;
-  padding: 20px;
   margin: 20px;
-  /* background-color: white; */
-  /* box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25); */
 }
