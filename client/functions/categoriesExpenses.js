@@ -3,7 +3,7 @@ const categoriesExpensesFunctions = {
     try {
       // send new category request to server
       const response = await fetch(
-        "http://localhost:3000/api/users/add-category",
+        "https://finance-tracker-ads91q59j-yishai946s-projects.vercel.app/api/users/add-category",
         {
           method: "POST",
           headers: {
@@ -27,7 +27,7 @@ const categoriesExpensesFunctions = {
     try {
       // send get categories request to server
       const response = await fetch(
-        "http://localhost:3000/api/users/get-categories",
+        "https://finance-tracker-ads91q59j-yishai946s-projects.vercel.app/api/users/get-categories",
         {
           method: "GET",
           headers: {
@@ -50,7 +50,7 @@ const categoriesExpensesFunctions = {
     try {
       // send delete category request to server
       const response = await fetch(
-        `http://localhost:3000/api/users/delete-category/${category}`,
+        `https://finance-tracker-ads91q59j-yishai946s-projects.vercel.app/api/users/delete-category/${category}`,
         {
           method: "DELETE",
           headers: {

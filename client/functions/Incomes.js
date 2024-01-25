@@ -2,7 +2,7 @@ const IncomesFunctions = {
   // get all expenses
   getIncomes: async () => {
     try {
-      const response = await fetch("http://localhost:3000/api/incomes/getAll", {
+      const response = await fetch("https://finance-tracker-ads91q59j-yishai946s-projects.vercel.app/api/incomes/getAll", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -22,7 +22,7 @@ const IncomesFunctions = {
   getIncomesByCategory: async (category) => {
     try {
       const response = await fetch(
-        `http://localhost:3000/api/incomes/getByCategory/${category}`,
+        `https://finance-tracker-ads91q59j-yishai946s-projects.vercel.app/api/incomes/getByCategory/${category}`,
         {
           method: "GET",
           headers: {
@@ -42,7 +42,7 @@ const IncomesFunctions = {
 
   addIncome: async (income) => {
     try {
-      const response = await fetch("http://localhost:3000/api/incomes/add", {
+      const response = await fetch("https://finance-tracker-ads91q59j-yishai946s-projects.vercel.app/api/incomes/add", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -63,7 +63,7 @@ const IncomesFunctions = {
   deleteIncome: async (id) => {
     try {
       const response = await fetch(
-        `http://localhost:3000/api/incomes/delete/${id}`,
+        `https://finance-tracker-ads91q59j-yishai946s-projects.vercel.app/api/incomes/delete/${id}`,
         {
           method: "DELETE",
           headers: {
@@ -85,7 +85,7 @@ const IncomesFunctions = {
   editIncome: async (income, id) => {
     try {
       const response = await fetch(
-        `http://localhost:3000/api/incomes/update/${id}`,
+        `https://finance-tracker-ads91q59j-yishai946s-projects.vercel.app/api/incomes/update/${id}`,
         {
           method: "PUT",
           headers: {

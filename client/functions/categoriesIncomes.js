@@ -3,7 +3,7 @@ const categoriesIncomesFunctions = {
     try {
       // send new category request to server
       const response = await fetch(
-        "http://localhost:3000/api/users/add-income-category",
+        "https://finance-tracker-ads91q59j-yishai946s-projects.vercel.app/api/users/add-income-category",
         {
           method: "POST",
           headers: {
@@ -27,7 +27,7 @@ const categoriesIncomesFunctions = {
     try {
       // send get categories request to server
       const response = await fetch(
-        "http://localhost:3000/api/users/get-income-categories",
+        "https://finance-tracker-ads91q59j-yishai946s-projects.vercel.app/api/users/get-income-categories",
         {
           method: "GET",
           headers: {
@@ -50,7 +50,7 @@ const categoriesIncomesFunctions = {
     try {
       // send delete category request to server
       const response = await fetch(
-        `http://localhost:3000/api/users/delete-income-category/${category}`,
+        `https://finance-tracker-ads91q59j-yishai946s-projects.vercel.app/api/users/delete-income-category/${category}`,
         {
           method: "DELETE",
           headers: {

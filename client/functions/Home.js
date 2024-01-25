@@ -1,7 +1,7 @@
 const HomeFunctions = {
   getBalance: async (date) => {
     const response = await fetch(
-      `http://localhost:3000/api/home/balance/${date}`,
+      `https://finance-tracker-ads91q59j-yishai946s-projects.vercel.app/api/home/balance/${date}`,
       {
         method: "GET",
         headers: {
@@ -20,7 +20,7 @@ const HomeFunctions = {
 
   getBalances: async (date) => {
     const response = await fetch(
-      `http://localhost:3000/api/home/balancesLastMonth/${date}`,
+      `https://finance-tracker-ads91q59j-yishai946s-projects.vercel.app/api/home/balancesLastMonth/${date}`,
       {
         method: "GET",
         headers: {
@@ -39,7 +39,7 @@ const HomeFunctions = {
 
   getExpenses: async (date) => {
     const response = await fetch(
-      `http://localhost:3000/api/home/expensesLastMonth/${date}`,
+      `https://finance-tracker-ads91q59j-yishai946s-projects.vercel.app/api/home/expensesLastMonth/${date}`,
       {
         method: "GET",
         headers: {
@@ -58,7 +58,7 @@ const HomeFunctions = {
 
   getIncomes: async (date) => {
     const response = await fetch(
-      `http://localhost:3000/api/home/incomesLastMonth/${date}`,
+      `https://finance-tracker-ads91q59j-yishai946s-projects.vercel.app/api/home/incomesLastMonth/${date}`,
       {
         method: "GET",
         headers: {
@@ -78,7 +78,7 @@ const HomeFunctions = {
   getExpensesByCategory: async () => {
     try {
       const response = await fetch(
-        `http://localhost:3000/api/home/expensesByCategories`,
+        `https://finance-tracker-ads91q59j-yishai946s-projects.vercel.app/api/home/expensesByCategories`,
         {
           method: "GET",
           headers: {
@@ -101,7 +101,7 @@ const HomeFunctions = {
   getExpensesTotal: async (date) => {
     try {
       const response = await fetch(
-        `http://localhost:3000/api/home/expenses/${date}`,
+        `https://finance-tracker-ads91q59j-yishai946s-projects.vercel.app/api/home/expenses/${date}`,
         {
           method: "GET",
           headers: {
@@ -123,7 +123,7 @@ const HomeFunctions = {
   getIncomesTotal: async (date) => {
     try {
       const response = await fetch(
-        `http://localhost:3000/api/home/incomes/${date}`,
+        `https://finance-tracker-ads91q59j-yishai946s-projects.vercel.app/api/home/incomes/${date}`,
         {
           method: "GET",
           headers: {
@@ -146,7 +146,7 @@ const HomeFunctions = {
   getExpensesPercentage: async (dateStart, dateEnd) => {
     try {
       const response = await fetch(
-        `http://localhost:3000/api/home/expensesPercentage?dateStart=${dateStart}&dateEnd=${dateEnd}`,
+        `https://finance-tracker-ads91q59j-yishai946s-projects.vercel.app/api/home/expensesPercentage?dateStart=${dateStart}&dateEnd=${dateEnd}`,
         {
           method: "GET",
           headers: {

@@ -11,16 +11,20 @@ function Signin() {
 
     // fetch login api
     try {
-      const response = await fetch("http://localhost:3000/api/users/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          username,
-          password,
-        }),
-      });
+      const response = await fetch(
+        "https://finance-tracker-ads91q59j-yishai946s-projects.vercel.app/api/users/login",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          // credentials: "include", 
+          body: JSON.stringify({
+            username,
+            password,
+          }),
+        }
+      );
 
       if(response.status === 400) {
         alert("Invalid username or password");
