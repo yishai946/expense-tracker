@@ -8,12 +8,12 @@ const cors = require("cors");
 
 const app = express();
 app.use(bodyParser.json());
-app.use(cors(
-    {
-        origin: "http://localhost:5173",
-        credentials: true
-    }
-));
+app.use(
+  cors({
+    origin: "http://172.20.10.4:5173",
+    credentials: true,
+  })
+);
 app.use("/api/users", usersRouter);
 app.use("/api/expenses", expensesRouter);
 app.use("/api/incomes", incomesRouter);
