@@ -10,7 +10,7 @@ const app = express();
 app.use(bodyParser.json());
 app.use(
   cors({
-    origin: "http://172.20.10.4:5173",
+    origin: "https://finance-tracker-client-psi.vercel.app/",
     credentials: true,
   })
 );
