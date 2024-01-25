@@ -8,10 +8,10 @@ const cors = require("cors");
 
 const app = express();
 app.use(bodyParser.json());
-app.use(cors());
-// app.use("/", (req, res) => {
-//     res.send("Welcome to the Budget API");
-// })
+app.use(cors({
+  origin: 'http://localhost:5173',
+  credentials: true,
+}));
 app.use("/api/users", usersRouter);
 app.use("/api/expenses", expensesRouter);
 app.use("/api/incomes", incomesRouter);
