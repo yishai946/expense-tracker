@@ -4,7 +4,7 @@ const MongoDB = require("./app/db/mongodb");
 
 const run = async () => {
     try{
-        const port  = process.env.PORT || "3000";
+        const port  = process.env.PORT;
         await MongoDB.instance().connect();
         app.listen(port, () => console.log(`Listening on port: ${port}`));
     }
