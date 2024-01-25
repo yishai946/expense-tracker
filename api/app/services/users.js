@@ -1,5 +1,5 @@
 const UsersCollection = require("../db/users");
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
 module.exports = {
@@ -43,7 +43,7 @@ module.exports = {
       }
 
       // Compare password
-      const isMatch = await bcrypt.compare(password, user.password);
+      const isMatch = await bcrypt.compare(password, user.password); // Change this line
       if (!isMatch) {
         return res.status(400).json({ error: "Invalid password" });
       }
