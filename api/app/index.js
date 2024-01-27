@@ -8,7 +8,8 @@ const cors = require("cors");
 
 const app = express();
 
-app.options("*", cors()); // Add this line to handle OPTIONS requests
+app.options("*", cors()); 
+app.options('/api/users/login', cors()) // enable pre-flight requests
 
 app.use(bodyParser.json());
 app.use(
