@@ -7,6 +7,9 @@ const homeRouter = require("./routes/home");
 const cors = require("cors");
 
 const app = express();
+
+app.options("*", cors()); // Add this line to handle OPTIONS requests
+
 app.use(bodyParser.json());
 app.use(
   cors({
@@ -15,13 +18,18 @@ app.use(
     // credentials: true,
   })
 );
-app.options("*", cors()); // Add this line to handle OPTIONS requests
 
-// app.use(function(req, res, next) {
-//   res.header("Access-Control-Allow-Origin", "https://finance-tracker-client-psi.vercel.app");
-//   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-//   next();
-// });
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "https://finance-tracker-client-psi.vercel.app");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  res.header("Access-Control-Allow-Methods", "*")
+
+  if (req.method === "OPTIONS") {
+    res.sendStatus(200);
+  }
+
+  next();
+});
 
 app.use("/api/users", usersRouter);
 app.use("/api/expenses", expensesRouter);
