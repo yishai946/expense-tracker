@@ -8,18 +8,21 @@ const cors = require("cors");
 
 const app = express();
 
+app.options("/", cors({
+  origin: ["*"],
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  preflightContinue: false,
+}));
+
 app.post("/", (req, res) => {
   res.send("Hello, world!");
 });
 
-app.options("*", cors()); // Handle OPTIONS requests with cors middleware
-
 app.use(bodyParser.json());
 app.use(
   cors({
-    origin: ["https://finance-tracker-client-psi.vercel.app"],
+    origin: ["*"],
     methods: ["GET", "POST", "PUT", "DELETE"],
-    credentials: true,
     preflightContinue: false,
   })
 );
@@ -31,7 +34,7 @@ app.use(function (req, res, next) {
   );
   res.header(
     "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
+    "Origin, X-Requested-With, Content-Type, Accept, application/json"
   );
   res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE"); // Specify allowed methods
 
