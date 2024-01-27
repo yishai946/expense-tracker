@@ -8,13 +8,20 @@ const cors = require("cors");
 
 const app = express();
 
-app.options('*', cors());
+app.options("*", (req, res) => {
+  res.set("Access-Control-Allow-Origin", "*");
+  res.set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+  res.set("Access-Control-Allow-Headers", "Content-Type");
+  res.send("ok");
+});
 
-app.use(cors({
-  origin: "*",
-  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-  optionsSuccessStatus: 200
-}));
+app.use(
+  cors({
+    origin: "*",
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    optionsSuccessStatus: 200,
+  })
+);
 
 app.use(bodyParser.urlencoded({ extended: false }));
 
