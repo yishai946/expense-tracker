@@ -12,7 +12,7 @@ function Signin() {
     // fetch login api
     try {
       const response = await fetch(
-        "https://finance-tracker-ads91q59j-yishai946s-projects.vercel.app/api/users/login",
+        "https://finance-tracker-api-pi.vercel.app/api/users/login",
         {
           method: "POST",
           headers: {
