@@ -8,11 +8,7 @@ const cors = require("cors");
 
 const app = express();
 
-app.options("/api", cors({
-  origin: ["*"],
-  methods: ["GET", "POST", "PUT", "DELETE"],
-  preflightContinue: false,
-}));
+app.options("*", sendStatus(200));
 
 app.post("/api", (req, res) => {
   res.send("Hello, world!");

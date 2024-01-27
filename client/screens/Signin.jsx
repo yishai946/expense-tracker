@@ -15,7 +15,6 @@ function Signin() {
           headers: {
             "Content-Type": "application/json",
           },
-          // credentials: "include",
         }
       );
       console.log(response)
