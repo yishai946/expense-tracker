@@ -9,7 +9,7 @@ function Signin() {
   const tryFetch = async () => {
     try {
       const response = await fetch(
-        "https://finance-tracker-api-pi.vercel.app/api",
+        "https://finance-tracker-api-pi.vercel.app/api/users/",
         {
           method: "GET",
           headers: {

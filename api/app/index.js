@@ -31,10 +31,6 @@ app.use(corsMiddleware);
 
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.get("/api/try", (req, res) => {
-  res.send("Hello World!");
-});
-
 app.use("/api/users", usersRouter);
 app.use("/api/expenses", expensesRouter);
 app.use("/api/incomes", incomesRouter);

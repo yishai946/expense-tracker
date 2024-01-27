@@ -3,6 +3,11 @@ const express = require("express");
 const router = express.Router();
 const { validateToken } = require("../middleware/auth");
 
+// try
+router.get("/", (req, res) => {
+  res.send("Hello World!");
+});
+
 // signup
 router.post("/signup", services.createUser);
 
