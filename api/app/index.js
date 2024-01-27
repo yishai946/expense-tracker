@@ -8,6 +8,10 @@ const cors = require("cors");
 
 const app = express();
 
+app.get("/", (req, res) => {
+  res.send("Hello, world!");
+});
+
 app.options("*", cors()); // Handle OPTIONS requests with cors middleware
 
 app.use(bodyParser.json());

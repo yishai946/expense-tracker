@@ -6,6 +6,24 @@ function Signin() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
+  const tryFetch = async () => {
+    try {
+      const response = await fetch(
+        "https://finance-tracker-api-pi.vercel.app/",
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          // credentials: "include",
+        }
+      );
+      console.log(response)
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -82,6 +100,9 @@ function Signin() {
           Don't have an acount ? <Link to="/signup">Sign up</Link>{" "}
         </p>
       </form>
+      <button onClick={tryFetch}>
+        try
+      </button>
     </div>
   );
 }
