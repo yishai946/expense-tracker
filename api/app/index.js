@@ -42,7 +42,7 @@ app.use(function (req, res, next) {
   next();
 });
 
-app.use("/api/users", usersRouter);
+// app.use("/api/users", usersRouter);
 app.use("/api/expenses", expensesRouter);
 app.use("/api/incomes", incomesRouter);
 app.use("/api/home", homeRouter);
