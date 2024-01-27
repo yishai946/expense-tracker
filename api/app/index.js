@@ -8,26 +8,11 @@ const cors = require("cors");
 
 const app = express();
 
-const corsMiddleware = (req, res, next) => {
-  res
-    .header("Access-Control-Allow-Origin", "*")
-    .header(
-      "Access-Control-Allow-Headers",
-      "Authorization,Accept,Origin,DNT,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Content-Range,Range"
-    )
-    .header(
-      "Access-Control-Allow-Methods",
-      "GET,POST,OPTIONS,PUT,DELETE,PATCH"
-    ).sendStatus(200);
-
-  if (req.method === "OPTIONS") {
-    res.sendStatus(200);
-  } else {
-    next();
-  }
-};
-
-app.use(corsMiddleware);
+app.use(cors({
+  origin: "*",
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  optionsSuccessStatus: 200
+}));
 
 app.use(bodyParser.urlencoded({ extended: false }));
 
