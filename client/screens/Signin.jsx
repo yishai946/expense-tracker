@@ -11,7 +11,7 @@ function Signin() {
       const response = await fetch(
         "https://finance-tracker-api-pi.vercel.app/api",
         {
-          method: "POST",
+          method: "GET",
           headers: {
             "Content-Type": "application/json",
           },

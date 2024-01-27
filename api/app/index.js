@@ -8,9 +8,12 @@ const cors = require("cors");
 
 const app = express();
 
-app.options("*", sendStatus(200));
+app.options("*", (req, res) => {
+  console.log("OPTIONS activated");
+  res.sendStatus(200);
+} );
 
-app.post("/api", (req, res) => {
+app.get("/api", (req, res) => {
   res.send("Hello, world!");
 });
 
