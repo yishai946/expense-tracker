@@ -8,7 +8,7 @@ const cors = require("cors");
 
 const app = express();
 
-app.post("/api", (req, res) => {
+app.post("/", (req, res) => {
   res.send("Hello, world!");
 });
 
