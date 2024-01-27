@@ -10,17 +10,18 @@ const app = express();
 app.use(bodyParser.json());
 app.use(
   cors({
-    origin: ["https://finance-tracker-client-psi.vercel.app"],
+    origin: ["*"],
     methods: ["GET", "POST", "PUT", "DELETE"],
     // credentials: true,
   })
 );
+app.options("*", cors()); // Add this line to handle OPTIONS requests
 
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "https://finance-tracker-client-psi.vercel.app");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
-});
+// app.use(function(req, res, next) {
+//   res.header("Access-Control-Allow-Origin", "https://finance-tracker-client-psi.vercel.app");
+//   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+//   next();
+// });
 
 app.use("/api/users", usersRouter);
 app.use("/api/expenses", expensesRouter);
