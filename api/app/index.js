@@ -8,15 +8,15 @@ const cors = require("cors");
 
 const app = express();
 
-app.options("*", cors()); 
-app.options('/api/users/login', cors()) // enable pre-flight requests
+app.options("*", function (req, res) {
+  res.sendStatus(200);
+});
 
 app.use(bodyParser.json());
 app.use(
   cors({
     origin: ["*"],
     methods: ["GET", "POST", "PUT", "DELETE"],
-    // credentials: true,
   })
 );
 
