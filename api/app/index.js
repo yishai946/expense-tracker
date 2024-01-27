@@ -12,7 +12,7 @@ app.use(
   cors({
     origin: ["https://finance-tracker-client-psi.vercel.app"],
     methods: ["GET", "POST", "PUT", "DELETE"],
-    credentials: true,
+    // credentials: true,
   })
 );
 
