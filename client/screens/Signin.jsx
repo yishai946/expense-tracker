@@ -22,10 +22,11 @@ function Signin() {
             username,
             password,
           }),
+          credentials: "include",
         }
       );
 
-      if(response.status === 400) {
+      if (response.status === 400) {
         alert("Invalid username or password");
         return;
       }
