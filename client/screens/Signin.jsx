@@ -6,30 +6,13 @@ function Signin() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  const tryFetch = async () => {
-    try {
-      const response = await fetch(
-        "https://finance-tracker-api-pi.vercel.app/api",
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      console.log(response)
-    } catch (err) {
-      console.log(err);
-    }
-  }
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     // fetch login api
     try {
       const response = await fetch(
-        "https://finance-tracker-api-pi.vercel.app/api/users/login",
+        `${import.meta.env.VITE_REACT_API}/api/users/login`,
         {
           method: "POST",
           headers: {
@@ -39,12 +22,14 @@ function Signin() {
             username,
             password,
           }),
-          // credentials: "include",
         }
       );
 
       if (response.status === 400) {
         alert("Invalid username or password");
+        response.json().then((data) => {
+          console.log(data);
+        });
         return;
       }
 
@@ -99,9 +84,6 @@ function Signin() {
           Don't have an acount ? <Link to="/signup">Sign up</Link>{" "}
         </p>
       </form>
-      <button onClick={tryFetch}>
-        try
-      </button>
     </div>
   );
 }

@@ -32,11 +32,14 @@ function Signup() {
 
     // fetch request to create user
     try {
-      const result = await fetch("https://finance-tracker-ads91q59j-yishai946s-projects.vercel.app/api/users/signup", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, username, email, password }),
-      });
+      const result = await fetch(
+        `${import.meta.env.VITE_REACT_API}/api/users/signup`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ name, username, email, password }),
+        }
+      );
 
       if (!result.ok) {
         // Check for specific error messages from the server

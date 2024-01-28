@@ -1,7 +1,7 @@
 const HomeFunctions = {
   getBalance: async (date) => {
     const response = await fetch(
-      `https://finance-tracker-ads91q59j-yishai946s-projects.vercel.app/api/home/balance/${date}`,
+      `${import.meta.env.VITE_REACT_API}/api/home/balance/${date}`,
       {
         method: "GET",
         headers: {
@@ -20,7 +20,7 @@ const HomeFunctions = {
 
   getBalances: async (date) => {
     const response = await fetch(
-      `https://finance-tracker-ads91q59j-yishai946s-projects.vercel.app/api/home/balancesLastMonth/${date}`,
+      `${import.meta.env.VITE_REACT_API}/api/home/balancesLastMonth/${date}`,
       {
         method: "GET",
         headers: {
@@ -39,7 +39,7 @@ const HomeFunctions = {
 
   getExpenses: async (date) => {
     const response = await fetch(
-      `https://finance-tracker-ads91q59j-yishai946s-projects.vercel.app/api/home/expensesLastMonth/${date}`,
+      `${import.meta.env.VITE_REACT_API}/api/home/expensesLastMonth/${date}`,
       {
         method: "GET",
         headers: {
@@ -58,7 +58,7 @@ const HomeFunctions = {
 
   getIncomes: async (date) => {
     const response = await fetch(
-      `https://finance-tracker-ads91q59j-yishai946s-projects.vercel.app/api/home/incomesLastMonth/${date}`,
+      `${import.meta.env.VITE_REACT_API}/api/home/incomesLastMonth/${date}`,
       {
         method: "GET",
         headers: {
@@ -78,7 +78,7 @@ const HomeFunctions = {
   getExpensesByCategory: async () => {
     try {
       const response = await fetch(
-        `https://finance-tracker-ads91q59j-yishai946s-projects.vercel.app/api/home/expensesByCategories`,
+        `${import.meta.env.VITE_REACT_API}/api/home/expensesByCategories`,
         {
           method: "GET",
           headers: {
@@ -101,7 +101,7 @@ const HomeFunctions = {
   getExpensesTotal: async (date) => {
     try {
       const response = await fetch(
-        `https://finance-tracker-ads91q59j-yishai946s-projects.vercel.app/api/home/expenses/${date}`,
+        `${import.meta.env.VITE_REACT_API}/api/home/expenses/${date}`,
         {
           method: "GET",
           headers: {
@@ -123,7 +123,7 @@ const HomeFunctions = {
   getIncomesTotal: async (date) => {
     try {
       const response = await fetch(
-        `https://finance-tracker-ads91q59j-yishai946s-projects.vercel.app/api/home/incomes/${date}`,
+        `${import.meta.env.VITE_REACT_API}/api/home/incomes/${date}`,
         {
           method: "GET",
           headers: {
@@ -146,7 +146,7 @@ const HomeFunctions = {
   getExpensesPercentage: async (dateStart, dateEnd) => {
     try {
       const response = await fetch(
-        `https://finance-tracker-ads91q59j-yishai946s-projects.vercel.app/api/home/expensesPercentage?dateStart=${dateStart}&dateEnd=${dateEnd}`,
+        `${import.meta.env.VITE_REACT_API}/api/home/expensesPercentage?dateStart=${dateStart}&dateEnd=${dateEnd}`,
         {
           method: "GET",
           headers: {

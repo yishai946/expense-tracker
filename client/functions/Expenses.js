@@ -3,7 +3,7 @@ const ExpensesFunctions = {
   getExpenses: async () => {
     try {
       const response = await fetch(
-        "https://finance-tracker-ads91q59j-yishai946s-projects.vercel.app/api/expenses/getAll",
+        `${import.meta.env.VITE_REACT_API}/api/expenses/getAll`,
         {
           method: "GET",
           headers: {
@@ -25,7 +25,7 @@ const ExpensesFunctions = {
   getExpensesByCategory: async (category) => {
     try {
       const response = await fetch(
-        `https://finance-tracker-ads91q59j-yishai946s-projects.vercel.app/api/expenses/getByCategory/${category}`,
+        `${import.meta.env.VITE_REACT_API}/api/expenses/getByCategory/${category}`,
         {
           method: "GET",
           headers: {
@@ -45,7 +45,7 @@ const ExpensesFunctions = {
 
   addExpense: async (expense) => {
     try {
-      const response = await fetch("https://finance-tracker-ads91q59j-yishai946s-projects.vercel.app/api/expenses/add", {
+      const response = await fetch(`${import.meta.env.VITE_REACT_API}/api/expenses/add`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -65,7 +65,7 @@ const ExpensesFunctions = {
   deleteExpense: async (id) => {
     try {
       const response = await fetch(
-        `https://finance-tracker-ads91q59j-yishai946s-projects.vercel.app/api/expenses/delete/${id}`,
+        `${import.meta.env.VITE_REACT_API}/api/expenses/delete/${id}`,
         {
           method: "DELETE",
           headers: {
@@ -86,7 +86,7 @@ const ExpensesFunctions = {
   editExpense: async (expense, id) => {
     try {
       const response = await fetch(
-        `https://finance-tracker-ads91q59j-yishai946s-projects.vercel.app/api/expenses/update/${id}`,
+        `${import.meta.env.VITE_REACT_API}/api/expenses/update/${id}`,
         {
           method: "PUT",
           headers: {
