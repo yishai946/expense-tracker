@@ -12,14 +12,14 @@ app.options("*", (req, res) => {
   res.set("Access-Control-Allow-Origin", "*");
   res.set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
   res.set("Access-Control-Allow-Headers", "Content-Type");
-  res.send("ok");
+  res.sendStatus(200);
 });
 
 app.use(
   cors({
     origin: "*",
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-    optionsSuccessStatus: 200,
+    optionsSuccessStatus: 204,
   })
 );
 
