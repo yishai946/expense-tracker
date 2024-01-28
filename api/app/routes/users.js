@@ -1,19 +1,12 @@
 const services = require("../services/users");
 const express = require("express");
 const router = express.Router();
+const cors = require("cors");
 const { validateToken } = require("../middleware/auth");
 
+router.options("*", cors());
 
-router.options("*", (req, res) => {
-  res.set("Access-Control-Allow-Origin", "*");
-  res.set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
-  res.set("Access-Control-Allow-Headers", "Content-Type");
-  res.set("HTTP/1.1 200 OK");
-  res.header("HTTP/1.1 200 OK");
-});
-
-
-router.get("/", (req, res) => {
+router.get("/", cors(), (req, res) => {
   res.send("Hello World!");
 });
 

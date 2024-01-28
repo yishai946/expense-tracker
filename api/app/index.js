@@ -8,21 +8,10 @@ const cors = require("cors");
 
 const app = express();
 
-app.options("*", (req, res) => {
-  res.set("Access-Control-Allow-Origin", "*");
-  res.set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
-  res.set("Access-Control-Allow-Headers", "Content-Type");
-  res.set("HTTP/1.1 200 OK");
-  res.header("HTTP/1.1 200 OK");
-});
+// Handle preflight requests
+app.options("*", cors());
 
-app.use(
-  cors({
-    origin: "*",
-    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-    optionsSuccessStatus: 204,
-  })
-);
+app.use(cors());
 
 app.use(bodyParser.urlencoded({ extended: false }));
 
