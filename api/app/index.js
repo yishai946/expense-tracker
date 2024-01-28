@@ -12,7 +12,8 @@ app.options("*", (req, res) => {
   res.set("Access-Control-Allow-Origin", "*");
   res.set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
   res.set("Access-Control-Allow-Headers", "Content-Type");
-  res.sendStatus(200);
+  res.set("HTTP/1.1 200 OK");
+  res.header("HTTP/1.1 200 OK");
 });
 
 app.use(

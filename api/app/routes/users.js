@@ -3,16 +3,18 @@ const express = require("express");
 const router = express.Router();
 const { validateToken } = require("../middleware/auth");
 
-// try
-router.get("/", (req, res) => {
-  res.send("Hello World!");
-});
 
 router.options("*", (req, res) => {
   res.set("Access-Control-Allow-Origin", "*");
   res.set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
   res.set("Access-Control-Allow-Headers", "Content-Type");
-  res.sendStatus(200);
+  res.set("HTTP/1.1 200 OK");
+  res.header("HTTP/1.1 200 OK");
+});
+
+
+router.get("/", (req, res) => {
+  res.send("Hello World!");
 });
 
 // signup
