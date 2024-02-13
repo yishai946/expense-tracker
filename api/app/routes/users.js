@@ -4,12 +4,6 @@ const router = express.Router();
 const cors = require("cors");
 const { validateToken } = require("../middleware/auth");
 
-router.options("*", cors());
-
-router.get("/", cors(), (req, res) => {
-  res.send("Hello World!");
-});
-
 // signup
 router.post("/signup", services.createUser);
 

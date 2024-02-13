@@ -43,7 +43,7 @@ module.exports = {
       }
 
       // Compare password
-      const isMatch = await bcrypt.compare(password, user.password); // Change this line
+      const isMatch = await bcrypt.compare(password, user.password);
       if (!isMatch) {
         return res.status(400).json({ error: "Invalid password" });
       }
