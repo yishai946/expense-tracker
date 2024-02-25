@@ -26,7 +26,7 @@ function Home() {
         </div>
       </div>
       <h1>
-        You are spending more than {parseInt(percentage)}% of other users.
+        You are spending more than {parseInt(percentage)}% of other users this month.
         <br />
         <span style={{ color: "royalBlue" }}>
           {percentage > 50
