@@ -9,7 +9,7 @@ function LogoutButton() {
         localStorage.removeItem("userData")
         localStorage.removeItem("userId");
         localStorage.removeItem("data")
-        window.location.href = "/signin";
+        window.location.href = "/";
     }}>
       <div className="sign">
         <svg viewBox="0 0 512 512">
