@@ -10,12 +10,11 @@ function Home() {
   const { balance, expensesTotal, incomesTotal, percentage } = useHomeContext();
 
   return (
-    <div>
+    <div className="responsive-div">
       <h1>Finance Tracker</h1>
       <LogoutButton />
       <Navigator />
       <div className="data">
-        <PiChart />
         <div className="headers">
           <label style={{ color: "rgb(53, 162, 235)" }}>Balance:</label>
           <p className="balance">{balance}₪</p>
@@ -24,18 +23,25 @@ function Home() {
           <label style={{ color: "rgb(255, 99, 132)" }}>Expenses:</label>
           <p className="expense">{expensesTotal}₪</p>
         </div>
+        <div className="piContainer">
+          <PiChart />
+        </div>
       </div>
-      <h1>
-        You are spending more than {parseInt(percentage)}% of other users this month.
-        <br />
-        <span style={{ color: "royalBlue" }}>
-          {percentage > 50
-            ? " Keep it up!"
-            : " Keep it fun and manage wisely!"}
-        </span>
-      </h1>
-
-      <LineChart />
+      <div className="spending">
+        <h1>
+          You are spending more than {parseInt(percentage)}% of other users this
+          month.
+          <br />
+          <span style={{ color: "royalBlue" }}>
+            {percentage > 50
+              ? " Keep it up!"
+              : " Keep it fun and manage wisely!"}
+          </span>
+        </h1>
+      </div>
+      <div className="chartContainer">
+        <LineChart />
+      </div>
     </div>
   );
 }

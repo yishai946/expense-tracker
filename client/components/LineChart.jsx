@@ -31,38 +31,50 @@ export const options = {
     },
     title: {
       display: true,
-      text: "30-days overview",
+      text: "30-days overview", // Default title
     },
   },
 };
 
 const LineChart = () => {
   const { balances, incomes, expenses } = useHomeContext();
-  const labels = balances.map((entry) => entry.date);
+
+  // Determine if the device is a phone in portrait mode
+  const isMobile =
+    window.innerWidth <= 768 && window.innerHeight > window.innerWidth;
+
+  // Set the number of days to display
+  const displayDays = isMobile ? 10 : 30;
+
+  // Get the labels for the last 'displayDays' days
+  const labels = balances.slice(-displayDays).map((entry) => entry.date);
 
   const data = {
     labels,
     datasets: [
       {
         label: "Balance",
-        data: balances.map((entry) => entry.total),
+        data: balances.slice(-displayDays).map((entry) => entry.total),
         borderColor: "rgb(53, 162, 235)",
         backgroundColor: "rgba(53, 162, 235, 0.5)",
       },
       {
         label: "Expenses",
-        data: expenses.map((entry) => entry.total),
+        data: expenses.slice(-displayDays).map((entry) => entry.total),
         borderColor: "rgb(255, 99, 132)",
         backgroundColor: "rgba(255, 99, 132, 0.5)",
       },
       {
         label: "Incomes",
-        data: incomes.map((entry) => entry.total),
+        data: incomes.slice(-displayDays).map((entry) => entry.total),
         borderColor: "rgb(75, 192, 192)",
         backgroundColor: "rgba(75, 192, 192, 0.5)",
       },
     ],
   };
+
+  // Update the title based on the display days
+  options.plugins.title.text = `${displayDays}-days overview`;
 
   return (
     balances &&
