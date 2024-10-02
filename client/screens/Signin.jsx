@@ -2,6 +2,8 @@ import "../styles/Login.css";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
+const baseUrl = "https://expense-tracker-b7mt.onrender.com";
+
 function Signin() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -11,24 +13,21 @@ function Signin() {
 
     // fetch login api
     try {
-      const response = await fetch(
-        `${import.meta.env.VITE_REACT_API}/api/users/login`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            username,
-            password,
-          }),
-        }
-      );
+      const response = await fetch(`${baseUrl}/api/users/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username,
+          password,
+        }),
+      });
 
       if (response.status === 400) {
         alert("Invalid username or password");
         response.json().then((data) => {
-          console.log(data);
+          console.error(data);
         });
         return;
       }
@@ -44,7 +43,7 @@ function Signin() {
         window.location.href = "/";
       }
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   };
 

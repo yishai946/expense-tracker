@@ -1,23 +1,22 @@
+const baseUrl = "https://expense-tracker-b7mt.onrender.com";
+
 const ExpensesFunctions = {
   // get all expenses
   getExpenses: async () => {
     try {
-      const response = await fetch(
-        `${import.meta.env.VITE_REACT_API}/api/expenses/getAll`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
+      const response = await fetch(`${baseUrl}/api/expenses/getAll`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
 
       ExpensesFunctions.checkAuth(response);
 
       return response.json();
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   },
 
@@ -25,7 +24,7 @@ const ExpensesFunctions = {
   getExpensesByCategory: async (category) => {
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_REACT_API}/api/expenses/getByCategory/${category}`,
+        `${baseUrl}/api/expenses/getByCategory/${category}`,
         {
           method: "GET",
           headers: {
@@ -39,13 +38,13 @@ const ExpensesFunctions = {
 
       return response.json();
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   },
 
   addExpense: async (expense) => {
     try {
-      const response = await fetch(`${import.meta.env.VITE_REACT_API}/api/expenses/add`, {
+      const response = await fetch(`${baseUrl}/api/expenses/add`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -58,50 +57,44 @@ const ExpensesFunctions = {
 
       return response.json();
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   },
 
   deleteExpense: async (id) => {
     try {
-      const response = await fetch(
-        `${import.meta.env.VITE_REACT_API}/api/expenses/delete/${id}`,
-        {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
+      const response = await fetch(`${baseUrl}/api/expenses/delete/${id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
 
       ExpensesFunctions.checkAuth(response);
 
       return response.json();
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   },
 
   editExpense: async (expense, id) => {
     try {
-      const response = await fetch(
-        `${import.meta.env.VITE_REACT_API}/api/expenses/update/${id}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-          body: JSON.stringify(expense),
-        }
-      );
+      const response = await fetch(`${baseUrl}/api/expenses/update/${id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        body: JSON.stringify(expense),
+      });
 
       ExpensesFunctions.checkAuth(response);
 
       return response.json();
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   },
 

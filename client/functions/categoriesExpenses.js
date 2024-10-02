@@ -1,9 +1,11 @@
+const baseUrl = "https://expense-tracker-b7mt.onrender.com";
+
 const categoriesExpensesFunctions = {
   addCategory: async (category) => {
     try {
       // send new category request to server
       const response = await fetch(
-        `${import.meta.env.VITE_REACT_API}/api/users/add-category`,
+        `${baseUrl}/api/users/add-category`,
         {
           method: "POST",
           headers: {
@@ -19,7 +21,7 @@ const categoriesExpensesFunctions = {
       // return response
       return response.json();
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   },
 
@@ -27,7 +29,7 @@ const categoriesExpensesFunctions = {
     try {
       // send get categories request to server
       const response = await fetch(
-        `${import.meta.env.VITE_REACT_API}/api/users/get-categories`,
+        `${baseUrl}/api/users/get-categories`,
         {
           method: "GET",
           headers: {
@@ -42,7 +44,7 @@ const categoriesExpensesFunctions = {
       // return response
       return response.json();
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   },
 
@@ -50,7 +52,7 @@ const categoriesExpensesFunctions = {
     try {
       // send delete category request to server
       const response = await fetch(
-        `${import.meta.env.VITE_REACT_API}/api/users/delete-category/${category}`,
+        `${baseUrl}/api/users/delete-category/${category}`,
         {
           method: "DELETE",
           headers: {
@@ -64,7 +66,7 @@ const categoriesExpensesFunctions = {
       // return response
       return response.json();
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   },
 

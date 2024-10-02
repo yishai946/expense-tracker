@@ -1,8 +1,10 @@
+const baseUrl = "https://expense-tracker-b7mt.onrender.com";
+
 const IncomesFunctions = {
   // get all expenses
   getIncomes: async () => {
     try {
-      const response = await fetch(`${import.meta.env.VITE_REACT_API}/api/incomes/getAll`, {
+      const response = await fetch(`${baseUrl}/api/incomes/getAll`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -14,7 +16,7 @@ const IncomesFunctions = {
 
       return response.json();
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   },
 
@@ -22,7 +24,7 @@ const IncomesFunctions = {
   getIncomesByCategory: async (category) => {
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_REACT_API}/api/incomes/getByCategory/${category}`,
+        `${baseUrl}/api/incomes/getByCategory/${category}`,
         {
           method: "GET",
           headers: {
@@ -36,13 +38,13 @@ const IncomesFunctions = {
 
       return response.json();
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   },
 
   addIncome: async (income) => {
     try {
-      const response = await fetch(`${import.meta.env.VITE_REACT_API}/api/incomes/add`, {
+      const response = await fetch(`${baseUrl}/api/incomes/add`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -55,52 +57,46 @@ const IncomesFunctions = {
 
       return response.json();
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   },
 
   //   delete income
   deleteIncome: async (id) => {
     try {
-      const response = await fetch(
-        `${import.meta.env.VITE_REACT_API}/api/incomes/delete/${id}`,
-        {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
+      const response = await fetch(`${baseUrl}/api/incomes/delete/${id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
 
       IncomesFunctions.checkAuth(response);
 
       return response.json();
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   },
 
   //   update income
   editIncome: async (income, id) => {
     try {
-      const response = await fetch(
-        `${import.meta.env.VITE_REACT_API}/api/incomes/update/${id}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-          body: JSON.stringify(income),
-        }
-      );
+      const response = await fetch(`${baseUrl}/api/incomes/update/${id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        body: JSON.stringify(income),
+      });
 
       IncomesFunctions.checkAuth(response);
 
       return response.json();
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   },
 

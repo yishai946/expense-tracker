@@ -1,25 +1,24 @@
+const baseUrl = "https://expense-tracker-b7mt.onrender.com";
+
 const categoriesIncomesFunctions = {
   addCategory: async (category) => {
     try {
       // send new category request to server
-      const response = await fetch(
-        `${import.meta.env.VITE_REACT_API}/api/users/add-income-category`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-          body: JSON.stringify(category),
-        }
-      );
+      const response = await fetch(`${baseUrl}/api/users/add-income-category`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        body: JSON.stringify(category),
+      });
 
       categoriesIncomesFunctions.checkAuth(response);
 
       // return response
       return response.json();
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   },
 
@@ -27,7 +26,7 @@ const categoriesIncomesFunctions = {
     try {
       // send get categories request to server
       const response = await fetch(
-        `${import.meta.env.VITE_REACT_API}/api/users/get-income-categories`,
+        `${baseUrl}/api/users/get-income-categories`,
         {
           method: "GET",
           headers: {
@@ -42,7 +41,7 @@ const categoriesIncomesFunctions = {
       // return response
       return response.json();
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   },
 
@@ -50,7 +49,7 @@ const categoriesIncomesFunctions = {
     try {
       // send delete category request to server
       const response = await fetch(
-        `${import.meta.env.VITE_REACT_API}/api/users/delete-income-category/${category}`,
+        `${baseUrl}/api/users/delete-income-category/${category}`,
         {
           method: "DELETE",
           headers: {
@@ -65,7 +64,7 @@ const categoriesIncomesFunctions = {
       // return response
       return response.json();
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   },
 

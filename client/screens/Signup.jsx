@@ -2,6 +2,8 @@ import "../styles/Signup.css";
 import React, { useState } from "react";
 import {Link} from "react-router-dom";
 
+const baseUrl = "https://expense-tracker-b7mt.onrender.com";
+
 function Signup() {
   const [name, setName] = useState("");
   const [username, setUsername] = useState(""); // [1 ]
@@ -33,7 +35,7 @@ function Signup() {
     // fetch request to create user
     try {
       const result = await fetch(
-        `${import.meta.env.VITE_REACT_API}/api/users/signup`,
+        `${baseUrl}/api/users/signup`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
