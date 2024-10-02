@@ -9,7 +9,7 @@ module.exports = {
       return res.status(401).json({ error: "Unauthorized" });
     }
     jwt.verify(token, process.env.JWT_KEY, (err, userId) => {
-      console.log(err);
+      console.error(err);
 
       if (err) return res.status(403).json({ error: "Forbidden" });
 

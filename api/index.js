@@ -4,12 +4,12 @@ const MongoDB = require("./app/db/mongodb");
 
 const run = async () => {
     try{
-        const port  = process.env.PORT;
+        const port  = process.env.PORT || 5000;
         await MongoDB.instance().connect();
         app.listen(port, () => console.log(`Listening on port: ${port}`));
     }
     catch(err){
-        console.log("Failed to start: ", err);
+        console.error("Failed to start: ", err);
     }
 }
 

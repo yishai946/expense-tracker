@@ -4,7 +4,7 @@ const usersRouter = require("./routes/users");
 const expensesRouter = require("./routes/expenses");
 const incomesRouter = require("./routes/incomes");
 const homeRouter = require("./routes/home");
-const cors = require("cors");
+const cors = require("cors")
 
 const app = express();
 app.use(bodyParser.json());
