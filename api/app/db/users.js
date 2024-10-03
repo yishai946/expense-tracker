@@ -44,31 +44,55 @@ class UsersCollection {
     }
   }
 
-  static async create(email, hashedPassword, username, name) {
+  static async create(
+    email,
+    hashedPassword,
+    username,
+    name,
+    isVerified = false
+  ) {
     try {
-      // check if user with same email exist
+      // Check if user with same email exists
       let user = await this.findByEmail(email);
       if (user) {
         throw new Error(`email already exist`);
       }
 
+      // Check if username already exists
       user = await this.findByUsername(username);
       if (user) {
         throw new Error(`username already exist`);
       }
 
+      console.log("isVerified", isVerified);
+
+      // Create new user document
       return await this.instance().usersCollection.insertOne({
         email,
         name,
         password: hashedPassword,
         username,
+        verified: isVerified, // Add the verified field
       });
+
     } catch (err) {
       throw new Error(err.message);
     }
   }
 
-  // TODO: add delete to all expenses later
+  // Update the verified status of the user
+  static async updateVerifiedStatus(userId, verified) {
+    try {
+      return await this.instance().usersCollection.updateOne(
+        { _id: new ObjectId(userId) },
+        { $set: { verified: verified } } // Update the verified field
+      );
+    } catch (err) {
+      console.error(`Error updating verification status: ${err}`);
+      throw new Error(`Error updating verification status: ${err.message}`);
+    }
+  }
+
   static async deleteUser(userId) {
     try {
       return await this.instance().usersCollection.deleteOne({
@@ -82,12 +106,13 @@ class UsersCollection {
 
   static async addCategory(userId, category) {
     try {
-      // check if category already exist
+      // Check if category already exists
       const user = await this.findById(userId);
       if (user.categories?.includes(category)) {
         throw new Error(`category already exist`);
       }
 
+      // Add category using $addToSet to ensure it's unique
       return await this.instance().usersCollection.updateOne(
         { _id: new ObjectId(userId) },
         { $addToSet: { categories: category } }
@@ -101,7 +126,7 @@ class UsersCollection {
     try {
       return await this.instance().usersCollection.updateOne(
         { _id: new ObjectId(userId) },
-        { $pull: { categories: category } }
+        { $pull: { categories: category } } // Remove the category from the array
       );
     } catch (err) {
       console.error(`Error deleting category: ${err}`);
@@ -111,18 +136,19 @@ class UsersCollection {
 
   static async addIncomeCategory(userId, category) {
     try {
-      // check if category already exist
+      // Check if income category already exists
       const user = await this.findById(userId);
       if (user.incomeCategories?.includes(category)) {
         throw new Error(`category already exist`);
       }
 
+      // Add income category using $addToSet to ensure uniqueness
       return await this.instance().usersCollection.updateOne(
         { _id: new ObjectId(userId) },
         { $addToSet: { incomeCategories: category } }
       );
     } catch (err) {
-      throw new Error(`Error adding category: ${err.message}`);
+      throw new Error(`Error adding income category: ${err.message}`);
     }
   }
 
@@ -130,11 +156,11 @@ class UsersCollection {
     try {
       return await this.instance().usersCollection.updateOne(
         { _id: new ObjectId(userId) },
-        { $pull: { incomeCategories: category } }
+        { $pull: { incomeCategories: category } } // Remove the category from the incomeCategories array
       );
     } catch (err) {
-      console.error(`Error deleting category: ${err}`);
-      throw new Error(`Error deleting category: ${err.message}`);
+      console.error(`Error deleting income category: ${err}`);
+      throw new Error(`Error deleting income category: ${err.message}`);
     }
   }
 }

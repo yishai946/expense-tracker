@@ -1,6 +1,15 @@
 const UsersCollection = require("../db/users");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const nodemailer = require("nodemailer");
+
+const transporter = nodemailer.createTransport({
+  service: "gmail", // Use your email service provider
+  auth: {
+    user: process.env.EMAIL, // Your email address
+    pass: process.env.EMAIL_PASSWORD, // Your email password or app password
+  },
+});
 
 module.exports = {
   // create new user
@@ -12,11 +21,37 @@ module.exports = {
       const hashedPassword = await bcrypt.hash(password, 10);
 
       // create the user doc
-      await UsersCollection.create(email, hashedPassword, username, name);
+      const user = await UsersCollection.create(
+        email,
+        hashedPassword,
+        username,
+        name,
+      );
 
-      res
-        .status(200)
-        .json({ success: true, message: "User created successfully" });
+      const verificationToken = jwt.sign(
+        { userId: user._id },
+        process.env.JWT_KEY,
+        { expiresIn: "1h" }
+      );
+
+      console.log("verificationToken", verificationToken);
+
+      const verificationUrl = `${process.env.BASE_URL}/verify-email?token=${verificationToken}`;
+      await transporter.sendMail({
+        from: process.env.EMAIL,
+        to: email,
+        subject: "Email Verification",
+        html: `
+          <h2>Welcome to Our App!</h2>
+          <p>Please verify your email by clicking the link below:</p>
+          <a href="${verificationUrl}">${verificationUrl}</a>
+        `,
+      });
+
+      res.status(200).json({
+        success: true,
+        message: "User created successfully, please verify your email",
+      });
     } catch (err) {
       if (
         err.message === "email already exist" ||
@@ -31,6 +66,33 @@ module.exports = {
     }
   },
 
+  // Verify user email
+  verifyEmail: async (req, res) => {
+    const { token } = req.query;
+
+    try {
+      // Verify the token
+      const decoded = jwt.verify(token, process.env.JWT_KEY);
+      const userId = decoded.userId;
+
+      // Find the user and mark as verified
+      const user = await UsersCollection.findById(userId);
+      if (!user) {
+        return res.status(400).json({ error: "Invalid token" });
+      }
+
+      // Update user to set verified to true
+      await UsersCollection.updateVerifiedStatus(userId, true);
+
+      res
+        .status(200)
+        .json({ success: true, message: "Email successfully verified" });
+    } catch (err) {
+      console.error(`Error verifying email: ${err}`);
+      res.status(400).json({ error: "Invalid or expired token" });
+    }
+  },
+
   //   login user
   login: async (req, res) => {
     try {
@@ -42,6 +104,13 @@ module.exports = {
         return res.status(400).json({ error: `username not found` });
       }
 
+      // Check if the user is verified
+      if (!user.verified) {
+        return res
+          .status(400)
+          .json({ error: "Please verify your email before logging in." });
+      }
+
       // Compare password
       const isMatch = await bcrypt.compare(password, user.password);
       if (!isMatch) {
@@ -49,10 +118,10 @@ module.exports = {
       }
 
       const token = jwt.sign({ userId: user._id }, process.env.JWT_KEY, {
-        expiresIn: "12h",
+        expiresIn: "240h",
       });
 
-      const expiry = new Date(Date.now() + 12 * 60 * 60 * 1000);
+      const expiry = new Date(Date.now() + 240 * 60 * 60 * 1000);
 
       return res.status(200).json({ token, expiry, userId: user._id });
     } catch (err) {

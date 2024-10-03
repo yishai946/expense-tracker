@@ -1,11 +1,13 @@
 const services = require("../services/users");
 const express = require("express");
 const router = express.Router();
-const cors = require("cors");
 const { validateToken } = require("../middleware/auth");
 
 // signup
 router.post("/signup", services.createUser);
+
+// Route to handle email verification
+router.get('/verify-email', services.verifyEmail);
 
 // login
 router.post("/login", services.login);
