@@ -3,22 +3,24 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const nodemailer = require("nodemailer");
 
-const transporter = nodemailer.createTransport({
-  service: "gmail", // Use your email service provider
-  auth: {
-    user: process.env.EMAIL, // Your email address
-    pass: process.env.EMAIL_PASSWORD, // Your email password or app password
-  },
-});
-
 module.exports = {
   // create new user
   createUser: async (req, res) => {
+    const user = process.env.EMAIL;
+    const pass = process.env.EMAIL_PASSWORD;
+
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user,
+        pass,
+      },
+    });
     try {
-      const { email, password, username, name } = req.body;
+      const { email, password, username, name } = req.body
 
       // Hash the password before storing it
-      const hashedPassword = await bcrypt.hash(password, 10);
+      const hashedPassword = await bcrypt.hash(password, 10)
 
       // create the user doc
       const user = await UsersCollection.create(
@@ -34,9 +36,7 @@ module.exports = {
         { expiresIn: "1h" }
       );
 
-      console.log("verificationToken", verificationToken);
-
-      const verificationUrl = `${process.env.BASE_URL}/verify-email?token=${verificationToken}`;
+      const verificationUrl = `${process.env.BASE_URL}/api/users/verify-email?token=${verificationToken}`;
       await transporter.sendMail({
         from: process.env.EMAIL,
         to: email,

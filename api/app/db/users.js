@@ -64,8 +64,6 @@ class UsersCollection {
         throw new Error(`username already exist`);
       }
 
-      console.log("isVerified", isVerified);
-
       // Create new user document
       return await this.instance().usersCollection.insertOne({
         email,
