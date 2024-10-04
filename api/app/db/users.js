@@ -93,8 +93,16 @@ class UsersCollection {
 
   static async deleteUser(userId) {
     try {
-      return await this.instance().usersCollection.deleteOne({
+      await this.instance().usersCollection.deleteOne({
         _id: new ObjectId(userId),
+      });
+
+      // delete all related docs from 'expenses' and 'incomes' collections
+      await MongoDB.instance().db().collection("expenses").deleteMany({
+        userId: userId,
+      });
+      await MongoDB.instance().db().collection("incomes").deleteMany({
+        userId: userId,
       });
     } catch (err) {
       console.error(`Error deleting user: ${err}`);
