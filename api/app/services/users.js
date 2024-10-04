@@ -17,26 +17,26 @@ module.exports = {
       },
     });
     try {
-      const { email, password, username, name } = req.body
+      const { email, password, username, name } = req.body;
 
       // Hash the password before storing it
-      const hashedPassword = await bcrypt.hash(password, 10)
+      const hashedPassword = await bcrypt.hash(password, 10);
 
       // create the user doc
       const user = await UsersCollection.create(
         email,
         hashedPassword,
         username,
-        name,
+        name
       );
 
       const verificationToken = jwt.sign(
-        { userId: user._id },
+        { userId: user.insertedId }, // use `user.insertedId` instead of `user._id`
         process.env.JWT_KEY,
         { expiresIn: "1h" }
       );
 
-      const verificationUrl = `${process.env.BASE_URL}/api/users/verify-email?token=${verificationToken}`;
+      const verificationUrl = `${process.env.FRONTEND_BASE_URL}/verify-email?token=${verificationToken}`;
       await transporter.sendMail({
         from: process.env.EMAIL,
         to: email,
@@ -70,10 +70,14 @@ module.exports = {
   verifyEmail: async (req, res) => {
     const { token } = req.query;
 
+    console.log("token : ", token);
+
     try {
       // Verify the token
       const decoded = jwt.verify(token, process.env.JWT_KEY);
+      console.log("decoded : ", decoded);
       const userId = decoded.userId;
+      console.log("userId : ", userId);
 
       // Find the user and mark as verified
       const user = await UsersCollection.findById(userId);
