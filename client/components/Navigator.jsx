@@ -13,6 +13,9 @@ function Navigator() {
         <Link to="/incomes">
           <img src="plus.png" className="icon" />
         </Link>
+        <Link to="/settings">
+          <img src="settings.png" className="icon" />
+        </Link>
       </nav>
   );
 }

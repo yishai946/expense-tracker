@@ -3,12 +3,7 @@ import React from 'react'
 function LogoutButton() {
   return (
     <button className="Btn" onClick={() => {
-        localStorage.removeItem("token");
-        localStorage.removeItem("expiry");
-        localStorage.removeItem("username");
-        localStorage.removeItem("userData")
-        localStorage.removeItem("userId");
-        localStorage.removeItem("data")
+        localStorage.clear();
         window.location.href = "/";
     }}>
       <div className="sign">

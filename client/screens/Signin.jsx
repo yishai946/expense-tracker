@@ -25,8 +25,8 @@ function Signin() {
       });
 
       if (response.status === 400) {
-        alert("Invalid username or password");
         response.json().then((data) => {
+          alert(data.error);
           console.error(data);
         });
         return;
