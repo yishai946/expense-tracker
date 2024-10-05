@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const baseUrl = "https://expense-tracker-b7mt.onrender.com";
+const baseUrl = "https://5c6prkkgx4.execute-api.eu-north-1.amazonaws.com/prod";
 
 function Verify() {
   const [message, setMessage] = useState("");

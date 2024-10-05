@@ -2,7 +2,7 @@ import "../styles/Login.css";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
-const baseUrl = "https://expense-tracker-b7mt.onrender.com";
+const baseUrl = "https://5c6prkkgx4.execute-api.eu-north-1.amazonaws.com/prod";
 
 function Signin() {
   const [username, setUsername] = useState("");

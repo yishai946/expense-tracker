@@ -1,7 +1,7 @@
 import React from "react";
 import Navigator from "../components/Navigator";
 
-const baseUrl = "https://expense-tracker-b7mt.onrender.com";
+const baseUrl = "https://5c6prkkgx4.execute-api.eu-north-1.amazonaws.com/prod";
 
 function Settings() {
   const deleteAccount = async () => {
