@@ -1,6 +1,7 @@
 import "../styles/Signup.css";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { Spin } from "antd";
 
 const baseUrl =
   "https://ir4ovq5ajyh2755u2jnjgj7oqi0bubsp.lambda-url.eu-north-1.on.aws";
@@ -11,6 +12,7 @@ function Signup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [repeatPassword, setRepeatPassword] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -35,6 +37,7 @@ function Signup() {
 
     // fetch request to create user
     try {
+      setLoading(true);
       const result = await fetch(`${baseUrl}/api/users/signup`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -58,10 +61,16 @@ function Signup() {
     } catch (err) {
       console.error(err);
       alert("Error creating user", err.message || err);
+    } finally {
+      setLoading(false);
     }
   };
 
-  return (
+  return loading ? (
+    <div>
+      <Spin size="large" />
+    </div>
+  ) : (
     <div
       style={{
         display: "flex",
