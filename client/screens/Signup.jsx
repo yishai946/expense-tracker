@@ -1,8 +1,9 @@
 import "../styles/Signup.css";
 import React, { useState } from "react";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 
-const baseUrl = "https://5c6prkkgx4.execute-api.eu-north-1.amazonaws.com/prod";
+const baseUrl =
+  "https://ir4ovq5ajyh2755u2jnjgj7oqi0bubsp.lambda-url.eu-north-1.on.aws/";
 
 function Signup() {
   const [name, setName] = useState("");
@@ -34,14 +35,11 @@ function Signup() {
 
     // fetch request to create user
     try {
-      const result = await fetch(
-        `${baseUrl}/api/users/signup`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ name, username, email, password }),
-        }
-      );
+      const result = await fetch(`${baseUrl}/api/users/signup`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, username, email, password }),
+      });
 
       if (!result.ok) {
         // Check for specific error messages from the server
@@ -57,7 +55,6 @@ function Signup() {
       setEmail("");
       setPassword("");
       setRepeatPassword("");
-      
     } catch (err) {
       console.error(err);
       alert("Error creating user", err.message || err);
@@ -65,7 +62,14 @@ function Signup() {
   };
 
   return (
-    <div style={{display: "flex", alignItems: "center", justifyContent: "center", height: "100vh"}}>
+    <div
+      style={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        height: "100vh",
+      }}
+    >
       <form className="form" onSubmit={handleSubmit}>
         <p className="title">Sign Up </p>
         <p className="message">Sign up now and get full access to our app. </p>
@@ -77,7 +81,7 @@ function Signup() {
           onChange={(e) => setName(e.target.value)}
           className="input"
         />
-  
+
         <input
           required
           placeholder="Username"
@@ -86,7 +90,7 @@ function Signup() {
           onChange={(e) => setUsername(e.target.value)} // [2 ]
           className="input"
         />
-  
+
         <input
           required
           placeholder="Email"
@@ -95,7 +99,7 @@ function Signup() {
           onChange={(e) => setEmail(e.target.value)}
           className="input"
         />
-  
+
         <input
           required
           placeholder="Password"
@@ -104,7 +108,7 @@ function Signup() {
           onChange={(e) => setPassword(e.target.value)}
           className="input"
         />
-  
+
         <input
           required
           placeholder="Repeat Password"
@@ -113,7 +117,7 @@ function Signup() {
           onChange={(e) => setRepeatPassword(e.target.value)}
           className="input"
         />
-  
+
         <button className="submit">Sign Up</button>
         <p className="signin">
           Already have an acount ? <Link to="/signin">Sign in</Link>{" "}

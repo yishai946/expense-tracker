@@ -1,7 +1,8 @@
 import React from "react";
 import Navigator from "../components/Navigator";
 
-const baseUrl = "https://5c6prkkgx4.execute-api.eu-north-1.amazonaws.com/prod";
+const baseUrl =
+  "https://ir4ovq5ajyh2755u2jnjgj7oqi0bubsp.lambda-url.eu-north-1.on.aws/";
 
 function Settings() {
   const deleteAccount = async () => {
@@ -10,7 +11,7 @@ function Settings() {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
         body: JSON.stringify({
           userId: localStorage.getItem("userId"),

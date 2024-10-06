@@ -2,7 +2,8 @@ import "../styles/Login.css";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
-const baseUrl = "https://5c6prkkgx4.execute-api.eu-north-1.amazonaws.com/prod";
+const baseUrl =
+  "https://ir4ovq5ajyh2755u2jnjgj7oqi0bubsp.lambda-url.eu-north-1.on.aws/";
 
 function Signin() {
   const [username, setUsername] = useState("");
