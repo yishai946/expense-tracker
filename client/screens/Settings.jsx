@@ -2,7 +2,7 @@ import React from "react";
 import Navigator from "../components/Navigator";
 
 const baseUrl =
-  "https://ir4ovq5ajyh2755u2jnjgj7oqi0bubsp.lambda-url.eu-north-1.on.aws/";
+  "https://ir4ovq5ajyh2755u2jnjgj7oqi0bubsp.lambda-url.eu-north-1.on.aws";
 
 function Settings() {
   const deleteAccount = async () => {
